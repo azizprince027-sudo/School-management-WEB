@@ -1,0 +1,26 @@
+{
+  "name": "school-management-web",
+  "version": "1.2.0",
+  "description": "Système de gestion d'école simplifié en Web",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azizprince027-sudo/School-management-WEB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/azizprince027-sudo/School-management-WEB/issues"
+  },
+  "homepage": "https://github.com/azizprince027-sudo/School-management-WEB#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "readline-sync": "^1.4.10"
+  }
+}

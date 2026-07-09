@@ -1,0 +1,13 @@
+    const { question, choixMenu, confirmer } = require('./utils/messagesReadline.js');
+    const { logInfo } = require('./utils/logger.js');
+    const authService = require('./services/authetification.js');
+    const { initDatabase } = require('./db/table.js');
+    const userService = require('./services/userServices.js');
+    const studentService = require('./services/studentServices.js');
+    const teacherService = require('./services/teacherServices.js');
+    const subjectService = require('./services/subjectServices.js');
+    const gradeService = require('./services/gradeServices.js');
+    const absenceService = require('./services/absenceServices.js');
+    const statsService = require('./services/meilleursEtudian.js');
+    const db = require('./db/database.js');
+    const { logError } = require('./utils/logger.js');
