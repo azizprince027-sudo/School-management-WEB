@@ -1,0 +1,315 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+    font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    /*  STRUCTURE GLOBALE  */
+
+    #Bloc {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    }
+
+    #panneau-gauche {
+    flex: 1;
+    background-color: #1c2542;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px;
+    color: #e8e6df;
+    }
+
+    #panneaux-droite {
+    flex: 1;
+    background-color: #ece9e2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    }
+
+    /*  DÉCORATIONS  */
+
+    #panneau-gauche > .décorations {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    #panneau-gauche > .décorations:nth-of-type(1) {
+    top: -80px;
+    right: 120px;
+    }
+
+    #panneau-gauche > .décorations:nth-of-type(2) {
+    bottom: -100px;
+    left: -60px;
+    }
+
+    /* TEXTE PANNEAU GAUCHE */
+
+    #labele-supp {
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: #8f9bc2;
+    text-transform: uppercase;
+    z-index: 1;
+    }
+
+    #Titres-principale {
+    font-size: 52px;
+    line-height: 1.2;
+    margin-top: 20px;
+    z-index: 1;
+    }
+
+    #Titres-principale > em {
+    color: #9db4e0;
+    font-style: italic;
+    }
+
+    #description {
+    margin-top: 25px;
+    max-width: 450px;
+    font-family: Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #c3c8dc;
+    z-index: 1;
+    }
+
+    #citations {
+    border-left: 3px solid #6f7a9c;
+    padding-left: 20px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    }
+
+    #citations > #texte-citation {
+    font-style: italic;
+    font-size: 18px;
+    color: #e8e6df;
+    }
+
+    #citations > #Source {
+    margin-top: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #7a84a6;
+    }
+
+    /*  CARTE DE CONNEXION  */
+
+    #carte {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    }
+
+    #carte > #titre-carte {
+    font-size: 28px;
+    color: #1c2542;
+    }
+
+    #carte > #soustitres-cartes {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    color: #6b7280;
+    margin-top: 6px;
+    margin-bottom: 25px;
+    }
+
+    /*  ONGLETS  */
+
+    #conteneurs-onglet {
+    display: flex;
+    background-color: #ece9e2;
+    border-radius: 10px;
+    padding: 5px;
+    gap: 5px;
+    margin-bottom: 25px;
+    }
+
+    #conteneurs-onglet > .roles {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    color: #6b7280;
+    cursor: pointer;
+    }
+
+    #conteneurs-onglet > .roles.switch-js {
+    background-color: #1c2542;
+    color: #ffffff;
+    }
+
+    /*  CHAMPS DE FORMULAIRE  */
+
+    .champ {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    }
+
+    .champ > .label-CHAMP {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #6b7280;
+    margin-bottom: 8px;
+    }
+
+    .champ > .champ-input {
+    border: 1px solid #d8d5cd;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    color: #1c2542;
+    }
+
+    /*  BOUTON  */
+
+    #bouton {
+    background-color: #4d6153;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 15px 0;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    }
+
+    /*  NOTICE  */
+
+    #notice {
+    display: flex;
+    margin-top: 20px;
+    background-color: #fbf1e4;
+    border: 1px dashed #e0b988;
+    border-radius: 10px;
+    padding: 15px;
+    }
+
+    #notice > #texte-notice {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #8a5a2b;
+    line-height: 1.5;
+    }
+
+    #notice .code-mots {
+    background-color: #f0dcb8;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    }
+
+    /*     RESPONSIVE  */
+
+    /*  TV   */
+    @media (min-width: 1600px) {
+    #Titres-principale {
+        font-size: 70px;
+    }
+    #description {
+        font-size: 20px;
+        max-width: 600px;
+    }
+    #carte {
+        max-width: 560px;
+        padding: 55px;
+    }
+    #bouton {
+        font-size: 18px;
+        padding: 18px 0;
+    }
+    }
+
+    /*  TABLETTE  */
+    @media (max-width: 1024px) {
+    #panneau-gauche,
+    #panneaux-droite {
+        padding: 35px;
+    }
+    #Titres-principale {
+        font-size: 38px;
+    }
+    #carte {
+        max-width: 400px;
+        padding: 30px;
+    }
+    }
+
+    /*  Mobile */
+    @media (max-width: 640px) {
+    #Bloc {
+        flex-direction: column;
+    }
+
+    #panneau-gauche {
+        padding: 30px;
+        min-height: auto;
+    }
+
+    #panneau-gauche > .décorations {
+        display: none;
+    }
+
+    #Titres-principale {
+        font-size: 30px;
+        margin-top: 15px;
+    }
+
+    #description {
+        font-size: 15px;
+        margin-top: 15px;
+    }
+
+    #citations {
+        margin-top: 25px;
+    }
+
+    #panneaux-droite {
+        padding: 20px;
+    }
+
+    #carte {
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    #conteneurs-onglet {
+        flex-direction: column;
+    }
+    }
