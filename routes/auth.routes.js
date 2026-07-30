@@ -1,12 +1,9 @@
 const express = require('express');
 const authrouter = express.Router();
-const {AUTHcontrolleur} = require('../controllers/auth.controller.js');
 
-authrouter.post('/inscriptions', AUTHcontrolleur.inscriptions);
-authrouter.post('/connexion', AUTHcontrolleur.connexion);
+const authControlleur = require('../controller/auth.controller');
 
-module.exports = {
-    authrouter
-};
+authrouter.post('/inscriptions', authControlleur.inscriptions);
+authrouter.post('/connexion', authControlleur.connexion);
 
-
+module.exports = authrouter;

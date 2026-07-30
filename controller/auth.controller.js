@@ -1,20 +1,21 @@
-class Authcontrolleur {
-    static async inscriptions (req,res)  {
+class authControlleur {
+    static async inscriptions(req, res) {
         const body = req.body;
+
         res.json({
-            status : true,
-            message: 'inscription reusite',
+            status: true,
+            message: "Inscription réussie"
         });
     }
-    static async connexion (req , res){
+
+    static async connexion(req, res) {
         const body = req.body;
+
         res.json({
-            status : true,
-            message: 'connecter avec succes'
+            status: true,
+            message: "Connecté avec succès"
         });
     }
 }
 
-module.exports={
-    AUTHcontrolleur
-}
+module.exports = authControlleur;
