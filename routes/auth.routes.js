@@ -1,9 +1,11 @@
 const express = require('express');
-const authrouter = express.Router();
+const router = express.Router();
+const ctrl = require('../controllers/auth.controller.js');
+const { estConnecte } = require('../middlewares/auth.middleware.js');
 
-const authControlleur = require('../controller/auth.controller');
+router.post('/login', ctrl.connexionPersonnel); // admin / professeur
+router.post('/login-etudiant', ctrl.connexionEtudiant); // etudiant
+router.post('/logout', estConnecte, ctrl.deconnexion);
+router.get('/profil', estConnecte, ctrl.profil);
 
-authrouter.post('/inscriptions', authControlleur.inscriptions);
-authrouter.post('/connexion', authControlleur.connexion);
-
-module.exports = authrouter;
+module.exports = router;

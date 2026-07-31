@@ -1,0 +1,348 @@
+/* =======================================================
+   Palette (pas de :root — valeurs reprises directement) :
+   Bleu nuit      #1c2743
+   Bleu nuit fonce #161e35
+   Bleu clair txt #a9b6d3
+   Creme titre    #f3efe4
+   Vert sauge     #b9cdbd
+   Vert bouton    #4f7a63
+   Vert bouton (survol) #416653
+   Fond formulaire #f1efe9
+   Gris bordure   #dcdad2
+   ======================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body.page-connexion {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #f1efe9;
+}
+
+
+/* ---------- Conteneur general (deux colonnes en flexbox) ---------- */
+
+.conteneur-connexion {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+
+/* ---------- Colonne gauche : presentation ---------- */
+
+.panneau-presentation {
+    flex: 1 1 50%;
+    position: relative;
+    overflow: hidden;
+    background-color: #1c2743;
+    display: flex;
+    align-items: center;
+    padding: 4rem 4rem;
+}
+
+.panneau-presentation .forme-decorative {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(169, 182, 211, 0.18);
+}
+
+.panneau-presentation .forme-decorative--haute {
+    width: 12rem;
+    height: 12rem;
+    top: -3rem;
+    right: 4rem;
+}
+
+.panneau-presentation .forme-decorative--basse {
+    width: 18rem;
+    height: 18rem;
+    bottom: -6rem;
+    right: -4rem;
+}
+
+.contenu-presentation {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 30rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contenu-presentation>.etiquette-application {
+    margin: 0;
+    color: #a9b6d3;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.contenu-presentation>.titre-application {
+    margin: 0;
+    color: #f3efe4;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 1.2;
+}
+
+.titre-application>.mot-accentue {
+    color: #b9cdbd;
+    font-style: italic;
+}
+
+.contenu-presentation>.description-application {
+    margin: 0;
+    color: #b7c1d9;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.contenu-presentation>.citation-application {
+    margin: 2rem 0 0 0;
+    padding-left: 1.2rem;
+    border-left: 2px solid #4f7a63;
+    color: #e3ded0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-style: italic;
+    font-size: 1.05rem;
+}
+
+.contenu-presentation>.reference-application {
+    margin: 0.5rem 0 0 1.4rem;
+    color: #6b769a;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+}
+
+
+/* ---------- Colonne droite : formulaire ---------- */
+
+.panneau-formulaire {
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    background-color: #f1efe9;
+}
+
+.carte-connexion {
+    width: 100%;
+    max-width: 24rem;
+    background-color: #ffffff;
+    border-radius: 0.9rem;
+    padding: 2.5rem;
+    box-shadow: 0 1.2rem 2.5rem rgba(28, 39, 67, 0.08);
+}
+
+.carte-connexion>.titre-connexion {
+    margin: 0 0 0.4rem 0;
+    color: #1c2743;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+}
+
+.carte-connexion>.sous-titre-connexion {
+    margin: 0 0 1.6rem 0;
+    color: #6b7280;
+    font-size: 0.92rem;
+}
+
+
+/* ---------- Selecteur d'espace (onglets) ---------- */
+
+.selecteur-espace {
+    display: flex;
+    flex-direction: row;
+    background-color: #f1efe9;
+    border-radius: 0.6rem;
+    padding: 0.3rem;
+    margin-bottom: 1.6rem;
+}
+
+.selecteur-espace>.bouton-espace {
+    flex: 1 1 0;
+    border: none;
+    background: transparent;
+    padding: 0.55rem 0.5rem;
+    border-radius: 0.45rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4b5266;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.selecteur-espace>.bouton-espace--actif {
+    background-color: #1c2743;
+    color: #ffffff;
+}
+
+
+/* ---------- Formulaire ---------- */
+
+.formulaire-connexion {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.formulaire-connexion>.champ-groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.champ-groupe>.etiquette-champ {
+    color: #1c2743;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.champ-groupe>.champ-texte {
+    border: 1.5px solid #dcdad2;
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.9rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #1c2743;
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+.champ-groupe>.champ-texte:focus {
+    border-color: #4f7a63;
+}
+
+.champ-groupe>.aide-champ {
+    margin: 0;
+    color: #8a8f9c;
+    font-size: 0.8rem;
+}
+
+.formulaire-connexion>.bouton-connexion {
+    margin-top: 0.4rem;
+    border: none;
+    border-radius: 0.55rem;
+    padding: 0.85rem 1rem;
+    background-color: #4f7a63;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.formulaire-connexion>.bouton-connexion:hover {
+    background-color: #416653;
+}
+
+.formulaire-connexion>.bouton-connexion:focus-visible,
+.selecteur-espace>.bouton-espace:focus-visible {
+    outline: 2px solid #4f7a63;
+    outline-offset: 2px;
+}
+
+
+/* =======================================================
+   Responsive — mobile
+   ======================================================= */
+
+@media (max-width: 640px) {
+    .conteneur-connexion {
+        flex-direction: column;
+    }
+    .panneau-presentation {
+        flex: 0 0 auto;
+        padding: 2.5rem 1.5rem;
+    }
+    .contenu-presentation>.titre-application {
+        font-size: 1.9rem;
+    }
+    .contenu-presentation>.citation-application {
+        display: none;
+    }
+    .contenu-presentation>.reference-application {
+        display: none;
+    }
+    .panneau-presentation .forme-decorative {
+        display: none;
+    }
+    .panneau-formulaire {
+        padding: 2rem 1.2rem 3rem 1.2rem;
+    }
+    .carte-connexion {
+        padding: 1.8rem 1.4rem;
+        box-shadow: none;
+    }
+}
+
+
+/* =======================================================
+   Responsive — tablette
+   ======================================================= */
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .panneau-presentation {
+        padding: 3rem 2.5rem;
+    }
+    .contenu-presentation>.titre-application {
+        font-size: 2.2rem;
+    }
+    .panneau-formulaire {
+        padding: 2.5rem 1.8rem;
+    }
+    .carte-connexion {
+        max-width: 22rem;
+    }
+}
+
+
+/* =======================================================
+   Responsive — grand ecran / TV
+   ======================================================= */
+
+@media (min-width: 1600px) {
+    body.page-connexion {
+        font-size: 1.15rem;
+    }
+    .conteneur-connexion {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    .contenu-presentation {
+        max-width: 42rem;
+        gap: 2rem;
+    }
+    .contenu-presentation>.titre-application {
+        font-size: 3.6rem;
+    }
+    .contenu-presentation>.description-application,
+    .contenu-presentation>.citation-application {
+        font-size: 1.3rem;
+    }
+    .carte-connexion {
+        max-width: 30rem;
+        padding: 3.2rem;
+    }
+    .carte-connexion>.titre-connexion {
+        font-size: 2.2rem;
+    }
+    .champ-groupe>.champ-texte,
+    .formulaire-connexion>.bouton-connexion {
+        font-size: 1.15rem;
+        padding: 1rem 1.1rem;
+    }
+}
