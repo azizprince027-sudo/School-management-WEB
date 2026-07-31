@@ -1,12 +1,20 @@
-// Middleware appele quand aucune route ne correspond
-function notFoundHandler(req, res, next) {
-    res.status(404).json({ error: `Route introuvable : ${req.method} ${req.originalUrl}` });
+// Middleware qui verifie que l'utilisateur est bien connecte (session active)
+function estConnecte(req, res, next) {
+    if (!req.session || !req.session.user) {
+        return res.status(401).json({ error: 'Non authentifie. Veuillez vous connecter.' });
+    }
+    next();
 }
 
-// Middleware global de gestion des erreurs (doit avoir 4 parametres pour qu'Express le reconnaisse)
-function errorHandler(err, req, res, next) {
-    console.error(err.stack || err);
-    res.status(err.status || 500).json({ error: err.message || 'Erreur interne du serveur.' });
+// Middleware "factory" : renvoie un middleware qui autorise uniquement les roles passes en argument
+// Utilisation : router.get('/route', estConnecte, autoriserRoles('admin'), controller)
+function autoriserRoles(...rolesAutorises) {
+    return (req, res, next) => {
+        if (!req.session || !req.session.user || !rolesAutorises.includes(req.session.user.role)) {
+            return res.status(403).json({ error: 'Acces refuse : role insuffisant.' });
+        }
+        next();
+    };
 }
 
-module.exports = { notFoundHandler, errorHandler };
+module.exports = { estConnecte, autoriserRoles };

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/grade.controller.js');
-const { estConnecte, autoriserRoles } = require('../middlewares/auth.middleware.js');
+const ctrl = require('../controller/Grade.controller.js');
+const { estConnecte, autoriserRoles } = require('../middlewares/Auth.middlewares.js');
 
 router.use(estConnecte);
 

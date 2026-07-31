@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/student.controller.js');
-const { estConnecte, autoriserRoles } = require('../middlewares/auth.middleware.js');
-const { validerChamps } = require('../middlewares/validate.middleware.js');
+const ctrl = require('../controller/Student.controller.js');
+const { estConnecte, autoriserRoles } = require('../middlewares/Auth.middlewares.js');
+const { validerChamps } = require('../middlewares/Validate.middleware.js');
 
 router.use(estConnecte);
 

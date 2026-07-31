@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('../controllers/absence.controller.js');
-const { estConnecte, autoriserRoles } = require('../middlewares/auth.middleware.js');
+const ctrl = require('../controller/Absence.controller.js');
+const { estConnecte, autoriserRoles } = require('../middlewares/Auth.middlewares.js');
 
 router.use(estConnecte);
 
