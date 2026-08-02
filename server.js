@@ -1,9 +1,9 @@
-require('dotenv').config();
+// require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 
 const { initDatabase } = require('./db/table.js');
-const { notFoundHandler, errorHandler } = require('./middlewares/Errorhandle.middlewares.js');
+const { notFoundHandler, errorHandler } = require('./middlewares/Errorhandle.middelewares.js');
 
 const authRouter = require('./routes/Auth.routes.js');
 const studentRouter = require('./routes/Student.Routes.js');
@@ -25,14 +25,14 @@ server.use(express.urlencoded({ extended: true }));
 
 // Session : necessaire pour garder l'utilisateur connecte (admin/professeur/etudiant)
 server.use(session({
-    secret: process.env.SESSION_SECRET || 'secret clé',
+    secret: process.env.SESSION_SECRET || 'change_moi_en_production',
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 4 } // 4h
 }));
 
 // Fichiers statiques de l'interface graphique (HTML/CSS/JS du dossier public)
-server.use(express.static('public'));
+server.use(express.static(__dirname + '/public'));
 
 // Routes de l'API
 server.use('/auth', authRouter);

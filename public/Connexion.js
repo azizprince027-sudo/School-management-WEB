@@ -1,52 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function() {
 
-    var boutonsEspace = document.querySelectorAll('.bouton-espace');
-    var champRole = document.getElementById('role-selectionne');
-    var groupesChamp = document.querySelectorAll('[data-champ-espace]');
-    var groupeCodeAcces = document.querySelector('[data-champ-code-acces]');
+        const conteneurOnglets = document.getElementById('conteneurs-onglet');
+        const onglets = conteneurOnglets.querySelectorAll('.roles');
 
-    function activerEspace(espace) {
+        onglets.forEach(function(onglet) {
+            onglet.addEventListener('click', function() {
 
-        // Mise a jour visuelle des onglets
-        boutonsEspace.forEach(function(bouton) {
-            var estActif = bouton.getAttribute('data-espace') === espace;
-            bouton.classList.toggle('bouton-espace--actif', estActif);
-            bouton.setAttribute('aria-selected', estActif ? 'true' : 'false');
+                // on retire la classe active de tous les onglets
+                onglets.forEach(function(o) {
+                    o.classList.remove('switch-js');
+                });
+
+                // on l'ajoute uniquement à celui cliqué
+                onglet.classList.add('switch-js');
+
+                // on récupère le rôle choisi
+                const roleChoisi = onglet.textContent.trim();
+                mettreAJourChamps(roleChoisi);
+
+            });
         });
 
-        // Affichage du champ d'identification propre a l'espace choisi
-        groupesChamp.forEach(function(groupe) {
-            var correspond = groupe.getAttribute('data-champ-espace') === espace;
-            groupe.hidden = !correspond;
-            var champ = groupe.querySelector('.champ-texte');
-            if (champ) {
-                champ.disabled = !correspond;
-            }
-        });
+        function mettreAJourChamps(role) {
+            const champInputs = document.querySelectorAll('.champ-input');
+            const champIdentifiant = champInputs[0];
+            const champCode = champInputs[1];
 
-        // Le code d'acces n'existe pas pour l'espace etudiant
-        var codeAcces = groupeCodeAcces.querySelector('.champ-texte');
-        if (espace === 'etudiant') {
-            groupeCodeAcces.hidden = true;
-            if (codeAcces) {
-                codeAcces.disabled = true;
-                codeAcces.value = '';
-            }
-        } else {
-            groupeCodeAcces.hidden = false;
-            if (codeAcces) {
-                codeAcces.disabled = false;
+            if (role === 'Administrateur') {
+                champIdentifiant.value = 'Admin';
+                champCode.value = '1234';
+            } else if (role === 'Professeur') {
+                champIdentifiant.value = 'Prof';
+                champCode.value = '5678';
+            } else if (role === 'Étudiant') {
+                champIdentifiant.value = 'Etudiant';
+                champCode.value = '0000';
             }
         }
 
-        champRole.value = espace;
-    }
-
-    boutonsEspace.forEach(function(bouton) {
-        bouton.addEventListener('click', function() {
-            activerEspace(bouton.getAttribute('data-espace'));
-        });
     });
-
-    activerEspace('administrateur');
-});
