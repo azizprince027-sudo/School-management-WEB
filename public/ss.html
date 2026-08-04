@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School-management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ss.css">
+</head>
+<body>
+
+    <div id="app">
+
+    <!-- ============ LOGIN ============ -->
+    <section id="login-screen">
+        <div class="login-hero">
+        <div>
+            <div class="brand-mark">School-management</div>
+            <h1 class="hero-title">Le <em>carnet</em> de toute l'année, au même endroit.</h1>
+            <p class="hero-sub">Élèves, professeurs, matières, notes et absences — trois espaces, un seul cahier numérique.</p>
+        </div>
+        <div class="hero-quote">« veillez à bien vérifier vos informations avant de vous connecter. »
+            <small>L 'excelence est la clé du succès.</small>
+        </div>
+        </div>
+
+        <div class="login-panel">
+        <div class="login-card">
+            <h2>Connexion</h2>
+            <p class="lede">Choisissez votre espace pour continuer.</p>
+
+            <div class="role-tabs">
+            <button class="active" data-role="admin" onclick="selectRole('admin')">Administrateur</button>
+            <button data-role="prof" onclick="selectRole('prof')">Professeur</button>
+            <button data-role="etudiant" onclick="selectRole('etudiant')">Étudiant</button>
+            </div>
+
+            <div id="fields-admin" class="role-fields">
+            <div class="field"><label>Identifiant</label><input type="text" value="Admin"></div>
+            <div class="field"><label>Code d'accès</label><input type="password" value="1234"></div>
+            </div>
+            <div id="fields-prof" class="role-fields" style="display:none">
+            <div class="field"><label>Nom</label><input type="text" value="Mme Kouadio"></div>
+            <div class="field"><label>Code d'accès</label><input type="password" value="••••"></div>
+            </div>
+            <div id="fields-etudiant" class="role-fields" style="display:none">
+            <div class="field">
+                <label>Matricule</label>
+                <input type="text" value="ET-2026-014">
+                <div class="hint">Pas de mot de passe — le matricule suffit.</div>
+            </div>
+            </div>
+
+            <button class="btn-primary" onclick="login()">Se connecter</button>
+
+            <div class="demo-note">
+            cliquez sur « Se connecter » pour explorer l'espace choisi.
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section id="dashboard">
+        <aside class="sidebar" id="sidebar">
+        <div class="rings"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="brand"><span class="mark">École</span></div>
+        <span class="role-pill" id="role-pill">admin</span>
+
+        <nav id="nav-admin" class="nav-group">
+            <button class="nav-item active" data-view="admin-accueil" onclick="showView('admin','admin-accueil',this)"><span class="dot"></span>Tableau de bord</button>
+            <button class="nav-item" data-view="admin-profs" onclick="showView('admin','admin-profs',this)"><span class="dot"></span>Professeurs</button>
+            <button class="nav-item" data-view="admin-etudiants" onclick="showView('admin','admin-etudiants',this)"><span class="dot"></span>Étudiants</button>
+            <button class="nav-item" data-view="admin-matieres" onclick="showView('admin','admin-matieres',this)"><span class="dot"></span>Matières</button>
+            <button class="nav-item" data-view="admin-absences" onclick="showView('admin','admin-absences',this)"><span class="dot"></span>Absences</button>
+            <button class="nav-item" data-view="admin-utilisateurs" onclick="showView('admin','admin-utilisateurs',this)"><span class="dot"></span>Utilisateurs</button>
+        </nav>
+
+        <nav id="nav-prof" class="nav-group" style="display:none">
+            <button class="nav-item active" data-view="prof-accueil" onclick="showView('prof','prof-accueil',this)"><span class="dot"></span>Tableau de bord</button>
+            <button class="nav-item" data-view="prof-etudiants" onclick="showView('prof','prof-etudiants',this)"><span class="dot"></span>Mes étudiants</button>
+            <button class="nav-item" data-view="prof-notes" onclick="showView('prof','prof-notes',this)"><span class="dot"></span>Notes</button>
+            <button class="nav-item" data-view="prof-absences" onclick="showView('prof','prof-absences',this)"><span class="dot"></span>Absences</button>
+            <button class="nav-item" data-view="prof-stats" onclick="showView('prof','prof-stats',this)"><span class="dot"></span>Statistiques</button>
+        </nav>
+
+        <nav id="nav-etudiant" class="nav-group" style="display:none">
+            <button class="nav-item active" data-view="etu-accueil" onclick="showView('etudiant','etu-accueil',this)"><span class="dot"></span>Tableau de bord</button>
+            <button class="nav-item" data-view="etu-notes" onclick="showView('etudiant','etu-notes',this)"><span class="dot"></span>Mes notes</button>
+            <button class="nav-item" data-view="etu-absences" onclick="showView('etudiant','etu-absences',this)"><span class="dot"></span>Mes absences</button>
+            <button class="nav-item" data-view="etu-stats" onclick="showView('etudiant','etu-stats',this)"><span class="dot"></span>Statistiques</button>
+        </nav>
+
+        <div class="sidebar-foot">
+            <div class="user-chip">
+            <div class="avatar" id="avatar">A</div>
+            <div class="who"><b id="who-name">Admin</b><span id="who-role">Administrateur</span></div>
+            </div>
+            <button class="logout-btn" onclick="logout()">Déconnexion</button>
+        </div>
+        </aside>
+
+        <main class="content">
+        <button class="menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">☰ Menu</button>
+
+        <!-- ===== ADMIN VIEWS ===== -->
+        <div data-space="admin">
+            <div class="view active" id="admin-accueil">
+            <div class="topbar">
+                <div><h1>Tableau de bord</h1><p class="subtitle">Vue d'ensemble de l'établissement</p></div>
+                <div class="today mono">mar. 07 juil. 2026</div>
+            </div>
+            <div class="stat-grid">
+                <div class="stat-card"><div class="label">Étudiants</div><div class="value">128</div><div class="delta">+4 ce mois</div></div>
+                <div class="stat-card"><div class="label">Professeurs</div><div class="value">14</div><div class="delta">+1 ce mois</div></div>
+                <div class="stat-card"><div class="label">Matières</div><div class="value">9</div><div class="delta">—</div></div>
+                <div class="stat-card"><div class="label">Absences non justifiées — aujourd'hui</div><div class="value">6</div><div class="delta warn">à traiter</div></div>
+            </div>
+            <div class="panel">
+                <div class="panel-head"><div><h3>Journal d'activité</h3><div class="desc">logs/app.log — dernières actions</div></div></div>
+                <div class="log-list">
+                <div class="log-line"><span>07:58:12</span><span class="lvl INFO">INFO</span><span>Connexion réussie — Admin</span></div>
+                <div class="log-line"><span>07:41:03</span><span class="lvl INFO">INFO</span><span>Note ajoutée — KOFFI Aya, Mathématiques, 16/20</span></div>
+                <div class="log-line"><span>07:22:47</span><span class="lvl WARNING">WARNING</span><span>Suppression refusée — matière liée à des notes existantes</span></div>
+                <div class="log-line"><span>06:55:19</span><span class="lvl ERROR">ERROR</span><span>Connexion échouée — code d'accès invalide (Professeur)</span></div>
+                <div class="log-line"><span>06:30:02</span><span class="lvl INFO">INFO</span><span>Absence enregistrée — TRAORÉ Ibrahim, non justifiée</span></div>
+                </div>
+            </div>
+            </div>
+
+            <div class="view" id="admin-profs">
+            <div class="topbar"><div><h1>Professeurs</h1><p class="subtitle">Affectation aux matières et classes</p></div>
+                <button class="btn btn-add">+ Ajouter un professeur</button></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Nom</th><th>Matière</th><th>Classe</th><th>Code d'accès</th><th></th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>Mme Kouadio</b></td><td>Mathématiques</td><td>L1 DAS — A</td><td class="matricule">••••</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>M. Diallo</b></td><td>Algorithmique</td><td>L1 DAS — A</td><td class="matricule">••••</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>Mme N'Guessan</b></td><td>Anglais</td><td>L1 DAS — B</td><td class="matricule">••••</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>M. Bamba</b></td><td>Base de données</td><td>L1 DAS — A</td><td class="matricule">••••</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="admin-etudiants">
+            <div class="topbar"><div><h1>Étudiants</h1><p class="subtitle">128 étudiants inscrits</p></div>
+                <button class="btn btn-add">+ Ajouter un étudiant</button></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Matricule</th><th>Nom</th><th>Âge</th><th>Classe</th><th></th></tr></thead>
+                <tbody>
+                <tr><td class="matricule">ET-2026-014</td><td class="cell-name"><b>KOFFI Aya</b></td><td>19</td><td>L1 DAS — A</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="matricule">ET-2026-015</td><td class="cell-name"><b>TRAORÉ Ibrahim</b></td><td>20</td><td>L1 DAS — A</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="matricule">ET-2026-016</td><td class="cell-name"><b>YAO Marie</b></td><td>18</td><td>L1 DAS — B</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="matricule">ET-2026-017</td><td class="cell-name"><b>OUATTARA Seydou</b></td><td>19</td><td>L1 DAS — A</td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="admin-matieres">
+            <div class="topbar"><div><h1>Matières</h1><p class="subtitle">Affectation d'un professeur par matière</p></div>
+                <button class="btn btn-add">+ Ajouter une matière</button></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Matière</th><th>Professeur affecté</th><th></th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>Mathématiques</b></td><td>Mme Kouadio</td><td class="row-actions"><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>Algorithmique</b></td><td>M. Diallo</td><td class="row-actions"><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>Base de données</b></td><td>M. Bamba</td><td class="row-actions"><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>Anglais</b></td><td>Mme N'Guessan</td><td class="row-actions"><button class="btn-ghost">🗑</button></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="admin-absences">
+            <div class="topbar"><div><h1>Absences</h1><p class="subtitle">Consultation par classe</p></div></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Étudiant</th><th>Classe</th><th>Date</th><th>Statut</th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>TRAORÉ Ibrahim</b></td><td>L1 DAS — A</td><td class="matricule">06/07/2026</td><td><span class="tag tag-nonjustifiee">Non justifiée</span></td></tr>
+                <tr><td class="cell-name"><b>YAO Marie</b></td><td>L1 DAS — B</td><td class="matricule">05/07/2026</td><td><span class="tag tag-justifiee">Justifiée</span></td></tr>
+                <tr><td class="cell-name"><b>OUATTARA Seydou</b></td><td>L1 DAS — A</td><td class="matricule">04/07/2026</td><td><span class="tag tag-nonjustifiee">Non justifiée</span></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="admin-utilisateurs">
+            <div class="topbar"><div><h1>Utilisateurs</h1><p class="subtitle">Tous les comptes du système</p></div></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Nom</th><th>Rôle</th><th>Identifiant</th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>Admin</b></td><td><span class="tag tag-admin">admin</span></td><td class="matricule">Admin</td></tr>
+                <tr><td class="cell-name"><b>Mme Kouadio</b></td><td><span class="tag tag-prof">professeur</span></td><td class="matricule">Kouadio</td></tr>
+                <tr><td class="cell-name"><b>KOFFI Aya</b></td><td><span class="tag tag-etudiant">étudiant</span></td><td class="matricule">ET-2026-014</td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+        </div>
+
+        <!-- ===== TEACHER VIEWS ===== -->
+        <div data-space="prof" style="display:none">
+            <div class="view active" id="prof-accueil">
+            <div class="topbar"><div><h1>Tableau de bord</h1><p class="subtitle">Classe L1 DAS — A · Mathématiques</p></div>
+                <div class="today mono">mar. 07 juil. 2026</div></div>
+            <div class="stat-grid">
+                <div class="stat-card"><div class="label">Étudiants</div><div class="value">32</div></div>
+                <div class="stat-card"><div class="label">Moyenne générale</div><div class="value">13,4</div><div class="delta">/20</div></div>
+                <div class="stat-card"><div class="label">Absences aujourd'hui</div><div class="value">2</div><div class="delta warn">non justifiées</div></div>
+            </div>
+            <div class="two-col">
+                <div class="panel"><div class="panel-head"><h3>Dernières notes saisies</h3></div>
+                <table><tbody>
+                    <tr><td class="cell-name"><b>KOFFI Aya</b><span>L1 DAS — A</span></td><td><span class="grade-badge good">16</span></td></tr>
+                    <tr><td class="cell-name"><b>OUATTARA Seydou</b><span>L1 DAS — A</span></td><td><span class="grade-badge mid">11</span></td></tr>
+                    <tr><td class="cell-name"><b>TRAORÉ Ibrahim</b><span>L1 DAS — A</span></td><td><span class="grade-badge">08</span></td></tr>
+                </tbody></table>
+                </div>
+                <div class="panel podium-card">
+                <div class="crown">🏆</div>
+                <div class="name">KOFFI Aya</div>
+                <div class="meta">Meilleure étudiante de la classe</div>
+                <div class="avg"><span class="n">17,2</span><span class="l">Moyenne</span></div>
+                </div>
+            </div>
+            </div>
+
+            <div class="view" id="prof-etudiants">
+            <div class="topbar"><div><h1>Mes étudiants</h1><p class="subtitle">L1 DAS — A · 32 étudiants</p></div></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Matricule</th><th>Nom</th><th>Moyenne</th></tr></thead>
+                <tbody>
+                <tr><td class="matricule">ET-2026-014</td><td class="cell-name"><b>KOFFI Aya</b></td><td><span class="grade-badge good">17</span></td></tr>
+                <tr><td class="matricule">ET-2026-015</td><td class="cell-name"><b>TRAORÉ Ibrahim</b></td><td><span class="grade-badge mid">12</span></td></tr>
+                <tr><td class="matricule">ET-2026-017</td><td class="cell-name"><b>OUATTARA Seydou</b></td><td><span class="grade-badge mid">11</span></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="prof-notes">
+            <div class="topbar"><div><h1>Notes</h1><p class="subtitle">Ajouter, modifier ou supprimer une note</p></div></div>
+            <div class="panel">
+                <div class="panel-head"><h3>Nouvelle note</h3></div>
+                <div class="mini-form">
+                <div><label>Étudiant</label><select><option>KOFFI Aya</option><option>TRAORÉ Ibrahim</option><option>OUATTARA Seydou</option></select></div>
+                <div><label>Note (0–20)</label><input type="number" min="0" max="20" value="15"></div>
+                <div class="actions"><button class="btn">Annuler</button><button class="btn btn-add">Enregistrer la note</button></div>
+                </div>
+            </div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Étudiant</th><th>Note</th><th></th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>KOFFI Aya</b></td><td><span class="grade-badge good">16</span></td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>TRAORÉ Ibrahim</b></td><td><span class="grade-badge">08</span></td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                <tr><td class="cell-name"><b>OUATTARA Seydou</b></td><td><span class="grade-badge mid">11</span></td><td class="row-actions"><button class="btn-ghost">✎</button><button class="btn-ghost">🗑</button></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="prof-absences">
+            <div class="topbar"><div><h1>Absences</h1><p class="subtitle">Enregistrer et justifier une absence</p></div></div>
+            <div class="panel">
+                <div class="panel-head"><h3>Enregistrer une absence</h3></div>
+                <div class="mini-form">
+                <div><label>Étudiant</label><select><option>TRAORÉ Ibrahim</option><option>YAO Marie</option></select></div>
+                <div><label>Date</label><input type="date" value="2026-07-07"></div>
+                <div class="actions"><button class="btn btn-add">Enregistrer</button></div>
+                </div>
+            </div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Étudiant</th><th>Date</th><th>Statut</th><th></th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>TRAORÉ Ibrahim</b></td><td class="matricule">06/07/2026</td><td><span class="tag tag-nonjustifiee">Non justifiée</span></td><td class="row-actions"><button class="btn-ghost">Justifier</button></td></tr>
+                <tr><td class="cell-name"><b>YAO Marie</b></td><td class="matricule">05/07/2026</td><td><span class="tag tag-justifiee">Justifiée</span></td><td></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="prof-stats">
+            <div class="topbar"><div><h1>Statistiques</h1><p class="subtitle">L1 DAS — A</p></div></div>
+            <div class="two-col">
+                <div class="panel podium-card"><div class="crown">🏆</div><div class="name">KOFFI Aya</div><div class="meta">Meilleure étudiante</div>
+                <div class="avg"><span class="n">17,2</span><span class="l">Moyenne</span></div></div>
+                <div class="panel podium-card"><div class="crown">📊</div><div class="name">Moyenne générale</div><div class="meta">Classe L1 DAS — A</div>
+                <div class="avg"><span class="n">13,4</span><span class="l">/ 20</span></div></div>
+            </div>
+            </div>
+        </div>
+
+        <!-- ===== STUDENT VIEWS ===== -->
+        <div data-space="etudiant" style="display:none">
+            <div class="view active" id="etu-accueil">
+            <div class="topbar"><div><h1>Tableau de bord</h1><p class="subtitle">KOFFI Aya · L1 DAS — A</p></div>
+                <div class="today mono">mar. 07 juil. 2026</div></div>
+            <div class="stat-grid">
+                <div class="stat-card"><div class="label">Ma moyenne</div><div class="value">17,2</div><div class="delta">/20</div></div>
+                <div class="stat-card"><div class="label">Absences non justifiées</div><div class="value">0</div><div class="delta">rien à signaler</div></div>
+                <div class="stat-card"><div class="label">Rang dans la classe</div><div class="value">1ᵉʳ</div><div class="delta">sur 32</div></div>
+            </div>
+            <div class="panel"><div class="panel-head"><h3>Mes dernières notes</h3></div>
+                <table><tbody>
+                <tr><td class="cell-name"><b>Mathématiques</b></td><td><span class="grade-badge good">16</span></td></tr>
+                <tr><td class="cell-name"><b>Algorithmique</b></td><td><span class="grade-badge good">18</span></td></tr>
+                <tr><td class="cell-name"><b>Anglais</b></td><td><span class="grade-badge mid">14</span></td></tr>
+                </tbody></table>
+            </div>
+            </div>
+
+            <div class="view" id="etu-notes">
+            <div class="topbar"><div><h1>Mes notes</h1><p class="subtitle">Moyenne générale : 17,2 / 20</p></div></div>
+            <div class="panel"><div class="panel-body">
+                <table><thead><tr><th>Matière</th><th>Note</th></tr></thead>
+                <tbody>
+                <tr><td class="cell-name"><b>Mathématiques</b></td><td><span class="grade-badge good">16</span></td></tr>
+                <tr><td class="cell-name"><b>Algorithmique</b></td><td><span class="grade-badge good">18</span></td></tr>
+                <tr><td class="cell-name"><b>Base de données</b></td><td><span class="grade-badge good">17</span></td></tr>
+                <tr><td class="cell-name"><b>Anglais</b></td><td><span class="grade-badge mid">14</span></td></tr>
+                </tbody></table>
+            </div></div>
+            </div>
+
+            <div class="view" id="etu-absences">
+            <div class="topbar"><div><h1>Mes absences</h1><p class="subtitle">Historique complet</p></div></div>
+            <div class="panel"><div class="panel-body">
+                <div class="empty-state">
+                <div class="glyph">📗</div>
+                <b>Aucune absence enregistrée</b>
+                Le cahier est vierge — continue comme ça.
+                </div>
+            </div></div>
+            </div>
+
+            <div class="view" id="etu-stats">
+            <div class="topbar"><div><h1>Statistiques de classe</h1><p class="subtitle">L1 DAS — A</p></div></div>
+            <div class="two-col">
+                <div class="panel podium-card"><div class="crown">🏆</div><div class="name">KOFFI Aya</div><div class="meta">Meilleure étudiante — c'est toi !</div>
+                <div class="avg"><span class="n">17,2</span><span class="l">Moyenne</span></div></div>
+                <div class="panel podium-card"><div class="crown">📊</div><div class="name">Moyenne générale</div><div class="meta">Classe L1 DAS — A</div>
+                <div class="avg"><span class="n">13,4</span><span class="l">/ 20</span></div></div>
+            </div>
+            </div>
+        </div>
+
+        </main>
+    </section>
+    </div>
+    
+    <script src="ss.js"></script>
+</body>
+</html>
