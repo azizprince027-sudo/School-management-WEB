@@ -2,20 +2,33 @@ const db = require('../db/database.js');
 const { logInfo, logWarning } = require('../utils/logger.js');
 const { ajouterUser } = require('./userServices.js');
 const { NonVide } = require('../utils/validation.js');
+
 // L'admin cree d'abord le compte (users), puis la fiche professeur (teachers)
+// Les deux insertions sont regroupees dans une transaction : si l'une echoue,
+// l'autre est annulee automatiquement (pas de compte orphelin).
 
 function ajouterProfesseur(nom, matiere, classe, codeAcces) {
     if (!NonVide(nom) || !NonVide(matiere) || !NonVide(classe) || !NonVide(codeAcces)) {
         logWarning('Tous les champs sont requis pour ajouter un professeur');
-        return null; 
+        return null;
     }
-    const userId = ajouterUser(nom, 'professeur', codeAcces);
-    const stmt = db.prepare(
-        'INSERT INTO teachers (user_id, nom, matiere, classe) VALUES (?, ?, ?, ?)'
-    );
-    const result = stmt.run(userId, nom, matiere, classe);
-    logInfo(`Professeur ajoute : ${nom} - ${matiere} - Classe ${classe}`);
-    return result.lastInsertRowid;
+
+    const creerProfesseur = db.transaction((nom, matiere, classe, codeAcces) => {
+        const userId = ajouterUser(nom, 'professeur', codeAcces);
+        const result = db.prepare(
+            'INSERT INTO teachers (user_id, nom, matiere, classe) VALUES (?, ?, ?, ?)'
+        ).run(userId, nom, matiere, classe);
+        return result.lastInsertRowid;
+    });
+
+    try {
+        const teacherId = creerProfesseur(nom, matiere, classe, codeAcces);
+        logInfo(`Professeur ajoute : ${nom} - ${matiere} - Classe ${classe}`);
+        return teacherId;
+    } catch (err) {
+        logWarning(`Echec ajout professeur ${nom} : ${err.message}`);
+        return null;
+    }
 }
 
 function modifierProfesseur(id, champs) {
@@ -24,46 +37,79 @@ function modifierProfesseur(id, champs) {
         logWarning(`Champs invalides pour modification professeur : id ${id}`);
         return false;
     }
+
     const prof = db.prepare('SELECT user_id FROM teachers WHERE id = ?').get(id);
     if (!prof) {
         logWarning(`Professeur introuvable pour modification : id ${id}`);
         return false;
     }
-    db.prepare(
-        'UPDATE teachers SET nom = ?, matiere = ?, classe = ? WHERE id = ?'
-    ).run(nom, matiere, classe, id);
-    db.prepare('UPDATE users SET name = ? WHERE id = ?').run(nom, prof.user_id);
-    logInfo(`Professeur modifie : id ${id}`);
-    return true;
-}
 
-// La fonction "supprimerProfesseur" est utilisée pour supprimer un professeur de la base de données en utilisant son id. Elle prend un paramètre "id" qui représente l'id du professeur à supprimer. La fonction utilise une requête SQL préparée pour supprimer le professeur correspondant à cet id dans la table "teachers". Après la suppression, une information est enregistrée dans les logs pour indiquer que le professeur a été supprimé.
-function supprimerProfesseur(id) {
-    const prof = db.prepare('SELECT user_id FROM teachers WHERE id = ?').get(id);
+    const modifier = db.transaction((id, userId) => {
+        db.prepare('UPDATE teachers SET nom = ?, matiere = ?, classe = ? WHERE id = ?')
+            .run(nom, matiere, classe, id);
+        db.prepare('UPDATE users SET name = ? WHERE id = ?').run(nom, userId);
+    });
+
     try {
-        db.prepare('DELETE FROM teachers WHERE id = ?').run(id);
+        modifier(id, prof.user_id);
+        logInfo(`Professeur modifie : id ${id}`);
+        return true;
     } catch (err) {
-        logWarning(`Suppression professeur ${id} impossible : encore affecte a une matiere`);
+        logWarning(`Echec modification professeur ${id} : ${err.message}`);
         return false;
     }
-    if (prof) {
-        db.prepare('DELETE FROM users WHERE id = ?').run(prof.user_id);
+}
+
+function supprimerProfesseur(id) {
+    const prof = db.prepare('SELECT user_id FROM teachers WHERE id = ?').get(id);
+    if (!prof) {
+        logWarning(`Professeur introuvable pour suppression : id ${id}`);
+        return false;
     }
-    logInfo(`Professeur supprime : id ${id}`);
-    return true;
+
+    const supprimer = db.transaction((id, userId) => {
+        db.prepare('DELETE FROM teachers WHERE id = ?').run(id);
+        db.prepare('DELETE FROM users WHERE id = ?').run(userId);
+    });
+
+    try {
+        supprimer(id, prof.user_id);
+        logInfo(`Professeur supprime : id ${id}`);
+        return true;
+    } catch (err) {
+        logWarning(`Suppression professeur ${id} impossible : ${err.message}`);
+        return false;
+    }
 }
-// La fonction "rechercherProfesseur" est utilisée pour rechercher un professeur dans la base de données en utilisant son id. Elle prend un paramètre "id" qui représente l'id du professeur à rechercher. La fonction utilise une requête SQL préparée pour sélectionner le professeur correspondant à cet id dans la table "teachers". Si un professeur avec cet id est trouvé, ses informations sont retournées sous forme d'objet. Si aucun professeur n'est trouvé, la fonction retourne undefined.
+
 function rechercherProfesseur(id) {
-    return db.prepare('SELECT * FROM teachers WHERE id = ?').get(id);
+    try {
+        return db.prepare('SELECT id, user_id, nom, matiere, classe FROM teachers WHERE id = ?').get(id);
+    } catch (err) {
+        logWarning(`Echec recherche professeur ${id} : ${err.message}`);
+        return null;
+    }
 }
-// La fonction "listerProfesseurs" est utilisée pour lister tous les professeurs présents dans la base de données. Elle utilise une requête SQL préparée pour sélectionner tous les professeurs de la table "teachers". Les informations de tous les professeurs sont retournées sous forme de tableau d'objets.
+
 function listerProfesseurs() {
-    return db.prepare('SELECT * FROM teachers').all();
+    try {
+        return db.prepare('SELECT id, user_id, nom, matiere, classe FROM teachers').all();
+    } catch (err) {
+        logWarning(`Echec liste professeurs : ${err.message}`);
+        return [];
+    }
 }
+
 // Recupere la fiche professeur a partir du user_id (utile apres le login)
 function getProfesseurParUserId(userId) {
-    return db.prepare('SELECT * FROM teachers WHERE user_id = ?').get(userId);
+    try {
+        return db.prepare('SELECT id, user_id, nom, matiere, classe FROM teachers WHERE user_id = ?').get(userId);
+    } catch (err) {
+        logWarning(`Echec recherche professeur par user_id ${userId} : ${err.message}`);
+        return null;
+    }
 }
+
 module.exports = {
     ajouterProfesseur,
     modifierProfesseur,

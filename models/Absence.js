@@ -5,7 +5,7 @@ class Absence {
             this.date = date;
             this.status = status; // 'justifiee' ou 'non_justifiee'
         }
-        // Méthode de contrainte projet
+        
         justifier() {
             this.status = "justifiee";
         }

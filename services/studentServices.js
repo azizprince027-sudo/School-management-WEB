@@ -16,18 +16,29 @@ function ajouterEtudiant(matricule, nom, prenom, age, classe) {
     }
 }
 // La fonction "modifierEtudiant" est utilisée pour modifier les informations d'un étudiant dans la base de données en utilisant son matricule. Elle prend deux paramètres : "matricule" qui représente le matricule de l'étudiant à modifier, et "champs" qui est un objet contenant les champs à modifier (nom, prenom, age, classe). La fonction utilise une requête SQL préparée pour mettre à jour les informations de l'étudiant correspondant à ce matricule dans la table "students". Après la modification, une information est enregistrée dans les logs pour indiquer que l'étudiant a été modifié.
+
 function modifierEtudiant(matricule, champs) {
     const { nom, prenom, age, classe } = champs;
     if (!NonVide(nom) || !NonVide(prenom) || !AgeValide(age) || !NonVide(classe)) {
         logWarning(`Champs invalides pour modification : ${matricule}`);
         return false;
     }
-    db.prepare(
-        'UPDATE students SET nom = ?, prenom = ?, age = ?, classe = ? WHERE matricule = ?'
-    ).run(nom, prenom, age, classe, matricule);
-    logInfo(`Etudiant modifie : ${matricule}`);
-    return true;
+    try {
+        const result = db.prepare(
+            'UPDATE students SET nom = ?, prenom = ?, age = ?, classe = ? WHERE matricule = ?'
+        ).run(nom, prenom, age, classe, matricule);
+        if (result.changes === 0) {
+            logWarning(`Modification impossible : etudiant ${matricule} introuvable`);
+            return false;
+        }
+        logInfo(`Etudiant modifie : ${matricule}`);
+        return true;
+    } catch (err) {
+        logWarning(`Echec modification etudiant ${matricule} : ${err.message}`);
+        return false;
+    }
 }
+
 // La fonction "supprimerEtudiant" est utilisée pour supprimer un étudiant de la base de données en utilisant son matricule. Elle prend un paramètre "matricule" qui représente le matricule de l'étudiant à supprimer. La fonction utilise une requête SQL préparée pour supprimer l'étudiant correspondant à ce matricule dans la table "students". Après la suppression, une information est enregistrée dans les logs pour indiquer que l'étudiant a été supprimé.
 
 function supprimerEtudiant(matricule) {
@@ -36,23 +47,32 @@ function supprimerEtudiant(matricule) {
         logInfo(`Etudiant supprime : ${matricule}`);
         return true;
     } catch (err) {
-        logWarning(`Suppression etudiant ${matricule} impossible : notes/absences liees`);
+        logWarning(`Suppression etudiant ${matricule} impossible : ${err.message}`);
         return false;
     }
 }
-// La fonction "rechercherEtudiant" est utilisée pour rechercher un étudiant dans la base de données en utilisant son matricule. Elle prend un paramètre "matricule" qui représente le matricule de l'étudiant à rechercher. La fonction utilise une requête SQL préparée pour sélectionner l'étudiant correspondant à ce matricule dans la table "students". Si un étudiant avec ce matricule est trouvé, ses informations sont retournées sous forme d'objet. Si aucun étudiant n'est trouvé, la fonction retourne undefined.
 
 function rechercherEtudiant(matricule) {
-    return db.prepare('SELECT * FROM students WHERE matricule = ?').get(matricule);
-}
-// La fonction "rechercherEtudiant" est utilisée pour rechercher un étudiant dans la base de données en utilisant son matricule. Elle prend un paramètre "matricule" qui représente le matricule de l'étudiant à rechercher. La fonction utilise une requête SQL préparée pour sélectionner l'étudiant correspondant à ce matricule dans la table "students". Si un étudiant avec ce matricule est trouvé, ses informations sont retournées sous forme d'objet. Si aucun étudiant n'est trouvé, la fonction retourne undefined.
-// Liste tous les etudiants, ou seulement ceux d'une classe (utilise par les profs)
-function listerEtudiants(classe = null) {
-    if (classe) {
-        return db.prepare('SELECT * FROM students WHERE classe = ?').all(classe);
+    try {
+        return db.prepare('SELECT * FROM students WHERE matricule = ?').get(matricule);
+    } catch (err) {
+        logWarning(`Echec recherche etudiant ${matricule} : ${err.message}`);
+        return null;
     }
-    return db.prepare('SELECT * FROM students').all();
 }
+
+function listerEtudiants(classe = null) {
+    try {
+        if (classe) {
+            return db.prepare('SELECT * FROM students WHERE classe = ?').all(classe);
+        }
+        return db.prepare('SELECT * FROM students').all();
+    } catch (err) {
+        logWarning(`Echec liste etudiants : ${err.message}`);
+        return [];
+    }
+}
+
 module.exports = {
     ajouterEtudiant,
     modifierEtudiant,

@@ -51,7 +51,7 @@ function initDatabase() {
             student_id INTEGER NOT NULL,
             date TEXT NOT NULL, 
             status TEXT NOT NULL CHECK(status IN ('justifiee','non_justifiee')),
-            FOREIGN KEY (student_id) REFERENCES students(id) 
+            FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE
         ); 
     `);
 }
