@@ -1,6 +1,5 @@
 const db = require('../db/database.js');
 const { logInfo, logWarning } = require('../utils/logger.js');
-const { ajouterUser } = require('./userServices.js');
 const { NonVide } = require('../utils/validation.js');
 
 // L'admin cree d'abord le compte (users), puis la fiche professeur (teachers)
@@ -14,10 +13,14 @@ function ajouterProfesseur(nom, matiere, classe, codeAcces) {
     }
 
     const creerProfesseur = db.transaction((nom, matiere, classe, codeAcces) => {
-        const userId = ajouterUser(nom, 'professeur', codeAcces);
+        const userResult = db.prepare(
+            'INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)'
+        ).run(nom, 'professeur', codeAcces);
+
         const result = db.prepare(
             'INSERT INTO teachers (user_id, nom, matiere, classe) VALUES (?, ?, ?, ?)'
-        ).run(userId, nom, matiere, classe);
+        ).run(userResult.lastInsertRowid, nom, matiere, classe);
+
         return result.lastInsertRowid;
     });
 

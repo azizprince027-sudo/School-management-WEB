@@ -3,6 +3,10 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide, AgeValide } = require('../utils/validation.js');
 // La fonction "ajouterEtudiant" est utilisée pour ajouter un nouvel étudiant à la base de données. Elle prend cinq paramètres : "matricule" qui représente le matricule de l'étudiant, "nom" qui représente le nom de l'étudiant, "prenom" qui représente le prénom de l'étudiant, "age" qui représente l'âge de l'étudiant, et "classe" qui représente la classe de l'étudiant. La fonction utilise une requête SQL préparée pour insérer les informations de l'étudiant dans la table "students". Si l'ajout est réussi, une information est enregistrée dans les logs pour indiquer que l'étudiant a été ajouté. Si une erreur se produit (par exemple, si le matricule est déjà utilisé), une alerte est enregistrée dans les logs et la fonction retourne false.
 function ajouterEtudiant(matricule, nom, prenom, age, classe) {
+    if (!NonVide(matricule) || !NonVide(nom) || !NonVide(prenom) || !AgeValide(age) || !NonVide(classe)) {
+        logWarning(`Champs invalides pour ajout etudiant : ${matricule}`);
+        return false;
+    }
     try {
         const stmt = db.prepare(
             'INSERT INTO students (matricule, nom, prenom, age, classe) VALUES (?, ?, ?, ?, ?)'

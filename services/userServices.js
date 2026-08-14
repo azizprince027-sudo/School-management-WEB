@@ -17,8 +17,16 @@ function ajouterUser(name, role, codeAcces) {
 // La fonction "ajouterUser" est utilisée pour ajouter un nouvel utilisateur (professeur) à la base de données. Elle prend trois paramètres : "name" qui représente le nom de l'utilisateur, "role" qui représente le rôle de l'utilisateur (dans ce cas, 'professeur'), et "codeAcces" qui représente le code d'accès de l'utilisateur. La fonction utilise une requête SQL préparée pour insérer ces informations dans la table "users". Après l'insertion, un message d'information est enregistré dans le journal pour indiquer que l'utilisateur a été ajouté avec succès, et la fonction retourne l'identifiant de la nouvelle ligne insérée dans la base de données.
 
 function supprimerUser(id) {
+    const supprimer = db.transaction((id) => {
+        // On supprime d'abord la fiche professeur liee a cet utilisateur, s'il y en a une
+        // (evite un teacher orphelin si on supprime via /users au lieu de /teachers)
+        db.prepare('DELETE FROM teachers WHERE user_id = ?').run(id);
+
+        return db.prepare('DELETE FROM users WHERE id = ?').run(id);
+    });
+
     try {
-        const result = db.prepare('DELETE FROM users WHERE id = ?').run(id);
+        const result = supprimer(id);
         if (result.changes === 0) {
             logWarning(`Suppression impossible : utilisateur ${id} introuvable`);
             return false;
