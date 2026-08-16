@@ -1,8 +1,13 @@
 const db = require('../db/database.js');
 const { logInfo, logWarning } = require('../utils/logger.js');
+const { NonVide } = require('../utils/validation.js');
 
 
 function ajouterUser(name, role, codeAcces) {
+    if (!NonVide(name) || !NonVide(role) || !NonVide(codeAcces)) {
+        logWarning(`Champs invalides pour ajout utilisateur : ${name}`);
+        return null;
+    }
     try {
         const stmt = db.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
         const result = stmt.run(name, role, codeAcces);
