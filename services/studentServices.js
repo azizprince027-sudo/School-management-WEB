@@ -55,6 +55,7 @@ function supprimerEtudiant(matricule) {
         return false;
     }
 }
+// La fonction "rechercherEtudiant" est utilisée pour rechercher un étudiant dans la base de données en utilisant son matricule. Elle prend un paramètre "matricule" qui représente le matricule de l'étudiant à rechercher. La fonction utilise une requête SQL préparée pour récupérer les informations de l'étudiant correspondant à ce matricule dans la table "students". Si l'étudiant est trouvé, ses informations sont retournées sous forme d'objet. Si une erreur se produit (par exemple, si l'étudiant n'existe pas), une alerte est enregistrée dans les logs et la fonction retourne null.
 
 function rechercherEtudiant(matricule) {
     try {
@@ -64,6 +65,7 @@ function rechercherEtudiant(matricule) {
         return null;
     }
 }
+// La fonction "listerEtudiants" est utilisée pour lister tous les étudiants dans la base de données, ou seulement ceux d'une classe spécifique si un paramètre "classe" est fourni. Elle prend un paramètre optionnel "classe" qui représente la classe des étudiants à lister. La fonction utilise une requête SQL préparée pour récupérer les informations des étudiants dans la table "students". Si une erreur se produit, une alerte est enregistrée dans les logs et la fonction retourne un tableau vide.
 
 function listerEtudiants(classe = null) {
     try {

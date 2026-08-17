@@ -32,7 +32,7 @@ function connexionEtudiant(req, res) {
     req.session.user = {
         id: student.id,
         matricule: student.matricule,
-        role: 'étudiant',
+        role: 'etudiant',
         nom: student.nom,
         prenom: student.prenom,
         classe: student.classe

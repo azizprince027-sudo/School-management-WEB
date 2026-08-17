@@ -1,4 +1,4 @@
-// require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 
@@ -18,14 +18,19 @@ const userRouter = require('./routes/User.Routes.js');
 initDatabase();
 
 const server = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT ;
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 // Session : necessaire pour garder l'utilisateur connecte (admin/professeur/etudiant)
+
+if (!process.env.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET manquant dans le fichier .env');
+}
+
 server.use(session({
-    secret: process.env.SESSION_SECRET || 'change_moi_en_production',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 4 } // 4h
