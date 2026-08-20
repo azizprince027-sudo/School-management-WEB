@@ -1,5 +1,4 @@
-const express = require('express');
-const expressSession = require('express-session');
+
 // Middleware appele quand aucune route ne correspond
 function notFoundHandler(req, res, next) {
     res.status(404).json({ error: `Route introuvable : ${req.method} ${req.originalUrl}` });

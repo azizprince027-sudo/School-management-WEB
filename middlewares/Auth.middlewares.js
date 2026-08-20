@@ -1,5 +1,4 @@
-const express = require('express');
-const expressSession = require('express-session');
+
 // Middleware qui verifie que l'utilisateur est bien connecte (session active)
 function estConnecte(req, res, next) {
     if (!req.session || !req.session.user) {
