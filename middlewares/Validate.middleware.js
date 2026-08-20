@@ -1,5 +1,6 @@
 // Petit middleware generique pour verifier que des champs obligatoires sont presents dans req.body.
 // Utilisation : validerChamps('nom', 'prenom', 'age')
+
 function validerChamps(...champsRequis) {
     return (req, res, next) => {
         const manquants = champsRequis.filter(champ => {

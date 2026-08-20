@@ -4,3 +4,5 @@ logs/*.log
 school.db-shm
 school.db-wal
 app.log
+.env
+db
