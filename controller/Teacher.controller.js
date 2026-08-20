@@ -18,7 +18,7 @@ function creer(req, res) {
 function modifier(req, res) {
     const succes = modifierProfesseur(req.params.id, req.body);
     if (!succes) {
-        return res.status(400).json({ error: 'professeur introuvable' });
+        return res.status(400).json({ error: 'Champs invalides ou professeur introuvable' });
     }
     res.json({ message: 'Professeur modifie.' });
 }
