@@ -67,7 +67,7 @@ function supprimerProfesseur(id) {
     const prof = db.prepare('SELECT user_id FROM teachers WHERE id = ?').get(id);
     if (!prof) {
         logWarning(`Professeur introuvable pour suppression : id ${id}`);
-        return false;
+        return null;
     }
 
     const supprimer = db.transaction((id, userId) => {

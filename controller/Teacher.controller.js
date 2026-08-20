@@ -18,13 +18,16 @@ function creer(req, res) {
 function modifier(req, res) {
     const succes = modifierProfesseur(req.params.id, req.body);
     if (!succes) {
-        return res.status(400).json({ error: 'Champs invalides ou professeur introuvable.' });
+        return res.status(400).json({ error: 'professeur introuvable' });
     }
     res.json({ message: 'Professeur modifie.' });
 }
 
 function supprimer(req, res) {
     const succes = supprimerProfesseur(req.params.id);
+    if (succes === null) {
+        return res.status(404).json({ error: 'Professeur introuvable.' });
+    }
     if (!succes) {
         return res.status(409).json({ error: 'Suppression impossible : encore affecte a une matiere.' });
     }

@@ -24,6 +24,10 @@ function marquer(req, res) {
 }
 
 function historiqueEleve(req, res) {
+    const { role, id } = req.session.user;
+    if (role === 'etudiant' && String(id) !== String(req.params.studentId)) {
+        return res.status(403).json({ error: 'Acces refuse : vous ne pouvez consulter que vos propres donnees.' });
+    }
     res.json(historiqueEtudiant(req.params.studentId));
 }
 

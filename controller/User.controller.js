@@ -6,11 +6,17 @@ function creer(req, res) {
         return res.status(400).json({ error: 'name, role et codeAcces sont requis.' });
     }
     const id = ajouterUser(name, role, codeAcces);
+    if (!id) {
+        return res.status(400).json({ error: 'Creation impossible (role invalide ).' });
+    }
     res.status(201).json({ message: 'Utilisateur ajoute.', id });
 }
 
 function supprimer(req, res) {
-    supprimerUser(req.params.id);
+    const succes = supprimerUser(req.params.id);
+    if (!succes) {
+        return res.status(404).json({ error: 'Utilisateur introuvable.' });
+    }
     res.json({ message: 'Utilisateur supprime.' });
 }
 

@@ -8,7 +8,7 @@ const {
 
 function creer(req, res) {
     const { matricule, nom, prenom, age, classe } = req.body;
-    if (!matricule || !nom || !prenom || !age || !classe) {
+    if (!matricule || !nom || !prenom || age === undefined || age === null || age === '' || !classe ) {
         return res.status(400).json({ error: 'Tous les champs sont requis.' });
     }
     const succes = ajouterEtudiant(matricule, nom, prenom, age, classe);
@@ -28,8 +28,11 @@ function modifier(req, res) {
 
 function supprimer(req, res) {
     const succes = supprimerEtudiant(req.params.matricule);
+    if (succes === null) {
+        return res.status(404).json({ error: 'Etudiant introuvable.' });
+    }
     if (!succes) {
-        return res.status(409).json({ error: 'Suppression impossible (notes/absences liees).' });
+        return res.status(409).json({ error: 'Suppression Impossible: des notes sont encore liees a cet etudiant.' });
     }
     res.json({ message: 'Etudiant supprime.' });
 }

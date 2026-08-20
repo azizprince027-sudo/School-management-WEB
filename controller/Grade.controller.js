@@ -10,7 +10,7 @@ function creer(req, res) {
     const { studentId, subjectId, note } = req.body;
     const succes = ajouterNote(studentId, subjectId, note);
     if (!succes) {
-        return res.status(400).json({ error: 'Note invalide (0-20) ou matiere introuvable.' });
+        return res.status(400).json({ error: 'Note invalide (0-20) .' });
     }
     res.status(201).json({ message: 'Note ajoutee.' });
 }
@@ -18,7 +18,7 @@ function creer(req, res) {
 function modifier(req, res) {
     const succes = modifierNote(req.params.id, req.body.note);
     if (!succes) {
-        return res.status(400).json({ error: 'Note invalide ou introuvable.' });
+        return res.status(400).json({ error: 'Note invalide .' });
     }
     res.json({ message: 'Note modifiee.' });
 }
@@ -32,10 +32,18 @@ function supprimer(req, res) {
 }
 
 function moyenne(req, res) {
+    const { role, id } = req.session.user;
+    if (role === 'etudiant' && String(id) !== String(req.params.studentId)) {
+        return res.status(403).json({ error: 'Acces refuse : vous ne pouvez consulter que vos propres donnees.' });
+    }
     res.json({ moyenne: moyenneEtudiant(req.params.studentId) });
 }
 
 function notes(req, res) {
+    const { role, id } = req.session.user;
+    if (role === 'etudiant' && String(id) !== String(req.params.studentId)) {
+        return res.status(403).json({ error: 'Acces refuse : vous ne pouvez consulter que vos propres donnees.' });
+    }
     res.json(notesEtudiant(req.params.studentId));
 }
 

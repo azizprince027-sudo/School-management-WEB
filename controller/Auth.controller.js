@@ -5,7 +5,7 @@ function connexionPersonnel(req, res) {
     const { name, codeAcces, role } = req.body;
     if (!name || !codeAcces || !role) {
         logWarning('Tentative de connexion echouee : nom, codeAcces et role requis.');
-        return res.status(400).json({ error: 'nom, codeAcces et role sont requis.' });
+        return res.status(400).json({ error: 'identifiants invalides.' });
     }
     const user = loginUser(name, codeAcces, role);
     if (!user) {
@@ -17,7 +17,7 @@ function connexionPersonnel(req, res) {
     res.json({ message: 'Connexion reussie.', user: req.session.user });
 }
 
-// Connexion etudiant (matricule uniquement)
+// Connexion etudiant (matricule )
 function connexionEtudiant(req, res) {
     const { matricule } = req.body;
     if (!matricule) {
@@ -48,7 +48,7 @@ function deconnexion(req, res) {
         }
         res.clearCookie('connect.sid');
         logInfo('Deconnexion reussie.');
-        res.json({ message: 'Deconnexion reussie , a bientot .' });
+        res.json({ message: 'Deconnexion reussie , Travaille bien .' });
     });
 }
 

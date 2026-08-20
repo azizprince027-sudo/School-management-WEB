@@ -29,6 +29,9 @@ function lister(req, res) {
 
 function supprimer(req, res) {
     const succes = supprimerMatiere(req.params.id);
+    if (succes === null) {
+        return res.status(404).json({ error: 'Matiere introuvable.' });
+    }
     if (!succes) {
         return res.status(409).json({ error: 'Suppression impossible (notes liees a cette matiere).' });
     }

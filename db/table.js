@@ -8,7 +8,7 @@ function initDatabase() {
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT, 
             name TEXT NOT NULL, 
-            role TEXT NOT NULL CHECK (role IN ('admin','professeur','étudiant')),
+            role TEXT NOT NULL CHECK (role IN ('admin','professeur','etudiant')),
             code_acces TEXT NOT NULL
         );
         

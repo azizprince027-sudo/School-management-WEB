@@ -51,7 +51,7 @@
         const result = db.prepare('DELETE FROM subjects WHERE id = ?').run(subjectId);
         if (result.changes === 0) {
             logWarning(`Suppression impossible : matiere ${subjectId} introuvable`);
-            return false;
+            return null;
         }
         logInfo(`Matiere supprimee : id ${subjectId}`);
         return true;

@@ -5,7 +5,7 @@ const { estConnecte } = require('../middlewares/Auth.middlewares.js');
 
 router.post('/login', ctrl.connexionPersonnel); // admin / professeur
 router.post('/login-etudiant', ctrl.connexionEtudiant); // etudiant
-router.post('/logout', estConnecte, ctrl.deconnexion);
-router.get('/profil', estConnecte, ctrl.profil);
+router.post('/logout', estConnecte, ctrl.deconnexion); // deconnexion de l'utilisateur connecté
+router.get('/profil', estConnecte, ctrl.profil); // Récupère les informations de l'utilisateur connecté
 
 module.exports = router;
