@@ -18,7 +18,7 @@ const userRouter = require('./routes/User.Routes.js');
 initDatabase();
 
 const server = express();
-const PORT = process.env.PORT ;
+const PORT = process.env.PORT;
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
@@ -33,7 +33,7 @@ server.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 * 4 } // 4h
+    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24h
 }));
 
 // Fichiers statiques de l'interface graphique (HTML/CSS/JS du dossier public)

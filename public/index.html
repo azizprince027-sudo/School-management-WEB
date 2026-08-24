@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School-management</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Connexion.css">
 </head>
 
@@ -16,14 +14,13 @@
 
     <div id="conteneur-application">
 
-        <!-- ============ CONNEXION ============ -->
+        <!-- CONNEXION  -->
         <section id="ecran-connexion">
             <div class="presentation-connexion">
                 <div>
                     <div class="marque-etablissement">School-management</div>
                     <h1 class="titre-presentation">Le <em>carnet</em> de toute l'année, au même endroit.</h1>
-                    <p class="texte-presentation">Élèves, professeurs, matières, notes et absences — trois espaces, un
-                        seul cahier numérique.</p>
+                    <p class="texte-presentation">Élèves, professeurs, matières, notes et absences — trois espaces, un seul cahier numérique.</p>
                 </div>
                 <div class="citation-presentation">« veillez à bien vérifier vos informations avant de vous connecter. »
                     <small>L 'excelence est la clé du succès.</small>
@@ -37,12 +34,9 @@
 
                     <form id="formulaire-connexion" onsubmit="return connecter(event)">
                         <div class="onglets-role">
-                            <button type="button" class="actif" data-role="admin"
-                                onclick="selectionnerRole('admin')">Administrateur</button>
-                            <button type="button" data-role="prof"
-                                onclick="selectionnerRole('prof')">Professeur</button>
-                            <button type="button" data-role="etudiant"
-                                onclick="selectionnerRole('etudiant')">Étudiant</button>
+                            <button type="button" class="actif" data-role="admin" onclick="selectionnerRole('admin')">Administrateur</button>
+                            <button type="button" data-role="prof" onclick="selectionnerRole('prof')">Professeur</button>
+                            <button type="button" data-role="etudiant" onclick="selectionnerRole('etudiant')">Étudiant</button>
                         </div>
 
                         <div id="champs-admin" class="champs-role">
@@ -52,14 +46,13 @@
                             </div>
                             <div class="champ-formulaire">
                                 <label>Code d'accès</label>
-                                <input type="password"value="1234">
+                                <input type="password" value="1234">
                             </div>
                         </div>
                         <div id="champs-professeur" class="champs-role" style="display:none">
                             <div class="champ-formulaire"><label>Nom</label><input type="text" value="Mme Kouadio">
                             </div>
-                            <div class="champ-formulaire"><label>Code d'accès</label><input type="password"
-                                    value="••••"></div>
+                            <div class="champ-formulaire"><label>Code d'accès</label><input type="password" value="••••"></div>
                         </div>
                         <div id="champs-etudiant" class="champs-role" style="display:none">
                             <div class="champ-formulaire">
@@ -79,7 +72,7 @@
             </div>
         </section>
 
-        <!-- ============ TABLEAU DE BORD ============ -->
+        <!-- TABLEAU DE BORD  -->
         <section id="tableau-de-bord">
             <aside class="barre-laterale" id="barre-laterale">
                 <div class="anneaux">
@@ -89,72 +82,55 @@
                 <span class="etiquette-role" id="etiquette-role">admin</span>
 
                 <nav id="menu-admin" class="groupe-menu">
-                    <button class="element-menu actif" data-vue="admin-accueil"
-                        onclick="afficherVue('admin','admin-accueil',this)"><span class="puce"></span>Tableau de
+                    <button class="element-menu actif" data-vue="admin-accueil" onclick="afficherVue('admin','admin-accueil',this)"><span class="puce"></span>Tableau de
                         bord</button>
-                    <button class="element-menu" data-vue="admin-professeurs"
-                        onclick="afficherVue('admin','admin-professeurs',this)"><span
+                    <button class="element-menu" data-vue="admin-professeurs" onclick="afficherVue('admin','admin-professeurs',this)"><span
                             class="puce"></span>Professeurs</button>
-                    <button class="element-menu" data-vue="admin-etudiants"
-                        onclick="afficherVue('admin','admin-etudiants',this)"><span
+                    <button class="element-menu" data-vue="admin-etudiants" onclick="afficherVue('admin','admin-etudiants',this)"><span
                             class="puce"></span>Étudiants</button>
-                    <button class="element-menu" data-vue="admin-matieres"
-                        onclick="afficherVue('admin','admin-matieres',this)"><span class="puce"></span>Matières</button>
-                    <button class="element-menu" data-vue="admin-absences"
-                        onclick="afficherVue('admin','admin-absences',this)"><span class="puce"></span>Absences</button>
-                    <button class="element-menu" data-vue="admin-utilisateurs"
-                        onclick="afficherVue('admin','admin-utilisateurs',this)"><span
+                    <button class="element-menu" data-vue="admin-matieres" onclick="afficherVue('admin','admin-matieres',this)"><span class="puce"></span>Matières</button>
+                    <button class="element-menu" data-vue="admin-absences" onclick="afficherVue('admin','admin-absences',this)"><span class="puce"></span>Absences</button>
+                    <button class="element-menu" data-vue="admin-utilisateurs" onclick="afficherVue('admin','admin-utilisateurs',this)"><span
                             class="puce"></span>Utilisateurs</button>
                 </nav>
 
                 <nav id="menu-professeur" class="groupe-menu" style="display:none">
-                    <button class="element-menu actif" data-vue="professeur-accueil"
-                        onclick="afficherVue('professeur','professeur-accueil',this)"><span class="puce"></span>Tableau
+                    <button class="element-menu actif" data-vue="professeur-accueil" onclick="afficherVue('professeur','professeur-accueil',this)"><span class="puce"></span>Tableau
                         de bord</button>
-                    <button class="element-menu" data-vue="professeur-etudiants"
-                        onclick="afficherVue('professeur','professeur-etudiants',this)"><span class="puce"></span>Mes
+                    <button class="element-menu" data-vue="professeur-etudiants" onclick="afficherVue('professeur','professeur-etudiants',this)"><span class="puce"></span>Mes
                         étudiants</button>
-                    <button class="element-menu" data-vue="professeur-notes"
-                        onclick="afficherVue('professeur','professeur-notes',this)"><span
+                    <button class="element-menu" data-vue="professeur-notes" onclick="afficherVue('professeur','professeur-notes',this)"><span
                             class="puce"></span>Notes</button>
-                    <button class="element-menu" data-vue="professeur-absences"
-                        onclick="afficherVue('professeur','professeur-absences',this)"><span
+                    <button class="element-menu" data-vue="professeur-absences" onclick="afficherVue('professeur','professeur-absences',this)"><span
                             class="puce"></span>Absences</button>
-                    <button class="element-menu" data-vue="professeur-statistiques"
-                        onclick="afficherVue('professeur','professeur-statistiques',this)"><span
+                    <button class="element-menu" data-vue="professeur-statistiques" onclick="afficherVue('professeur','professeur-statistiques',this)"><span
                             class="puce"></span>Statistiques</button>
                 </nav>
 
                 <nav id="menu-etudiant" class="groupe-menu" style="display:none">
-                    <button class="element-menu actif" data-vue="etudiant-accueil"
-                        onclick="afficherVue('etudiant','etudiant-accueil',this)"><span class="puce"></span>Tableau de
+                    <button class="element-menu actif" data-vue="etudiant-accueil" onclick="afficherVue('etudiant','etudiant-accueil',this)"><span class="puce"></span>Tableau de
                         bord</button>
-                    <button class="element-menu" data-vue="etudiant-notes"
-                        onclick="afficherVue('etudiant','etudiant-notes',this)"><span class="puce"></span>Mes
+                    <button class="element-menu" data-vue="etudiant-notes" onclick="afficherVue('etudiant','etudiant-notes',this)"><span class="puce"></span>Mes
                         notes</button>
-                    <button class="element-menu" data-vue="etudiant-absences"
-                        onclick="afficherVue('etudiant','etudiant-absences',this)"><span class="puce"></span>Mes
+                    <button class="element-menu" data-vue="etudiant-absences" onclick="afficherVue('etudiant','etudiant-absences',this)"><span class="puce"></span>Mes
                         absences</button>
-                    <button class="element-menu" data-vue="etudiant-statistiques"
-                        onclick="afficherVue('etudiant','etudiant-statistiques',this)"><span
+                    <button class="element-menu" data-vue="etudiant-statistiques" onclick="afficherVue('etudiant','etudiant-statistiques',this)"><span
                             class="puce"></span>Statistiques</button>
                 </nav>
 
                 <div class="pied-barre-laterale">
                     <div class="profil-utilisateur">
                         <div class="avatar-utilisateur" id="avatar-utilisateur">A</div>
-                        <div class="identite-utilisateur"><b id="nom-utilisateur">Admin</b><span
-                                id="role-utilisateur">Administrateur</span></div>
+                        <div class="identite-utilisateur"><b id="nom-utilisateur">Admin</b><span id="role-utilisateur">Administrateur</span></div>
                     </div>
                     <button class="bouton-deconnexion" onclick="deconnecter()">Déconnexion</button>
                 </div>
             </aside>
 
             <main class="contenu-principal">
-                <button class="bouton-menu"
-                    onclick="document.getElementById('barre-laterale').classList.toggle('ouvert')">☰ Menu</button>
+                <button class="bouton-menu" onclick="document.getElementById('barre-laterale').classList.toggle('ouvert')">☰ Menu</button>
 
-                <!-- ===== VUES ADMIN ===== -->
+                <!-- VUES ADMIN -->
                 <div data-espace="admin">
                     <div class="vue actif" id="admin-accueil">
                         <div class="barre-titre">
@@ -194,19 +170,14 @@
                                 </div>
                             </div>
                             <div class="liste-journal">
-                                <div class="ligne-journal"><span>07:58:12</span><span
-                                        class="niveau INFO">INFO</span><span>Connexion réussie — Admin</span></div>
-                                <div class="ligne-journal"><span>07:41:03</span><span
-                                        class="niveau INFO">INFO</span><span>Note ajoutée — KOFFI Aya, Mathématiques,
+                                <div class="ligne-journal"><span>07:58:12</span><span class="niveau INFO">INFO</span><span>Connexion réussie — Admin</span></div>
+                                <div class="ligne-journal"><span>07:41:03</span><span class="niveau INFO">INFO</span><span>Note ajoutée — KOFFI Aya, Mathématiques,
                                         16/20</span></div>
-                                <div class="ligne-journal"><span>07:22:47</span><span
-                                        class="niveau WARNING">WARNING</span><span>Suppression refusée — matière liée à
+                                <div class="ligne-journal"><span>07:22:47</span><span class="niveau WARNING">WARNING</span><span>Suppression refusée — matière liée à
                                         des notes existantes</span></div>
-                                <div class="ligne-journal"><span>06:55:19</span><span
-                                        class="niveau ERROR">ERROR</span><span>Connexion échouée — code d'accès invalide
+                                <div class="ligne-journal"><span>06:55:19</span><span class="niveau ERROR">ERROR</span><span>Connexion échouée — code d'accès invalide
                                         (Professeur)</span></div>
-                                <div class="ligne-journal"><span>06:30:02</span><span
-                                        class="niveau INFO">INFO</span><span>Absence enregistrée — TRAORÉ Ibrahim, non
+                                <div class="ligne-journal"><span>06:30:02</span><span class="niveau INFO">INFO</span><span>Absence enregistrée — TRAORÉ Ibrahim, non
                                         justifiée</span></div>
                             </div>
                         </div>
@@ -238,32 +209,28 @@
                                             <td>Mathématiques</td>
                                             <td>L1 DAS — A</td>
                                             <td class="matricule">••••</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="cellule-nom"><b>M. Diallo</b></td>
                                             <td>Algorithmique</td>
                                             <td>L1 DAS — A</td>
                                             <td class="matricule">••••</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="cellule-nom"><b>Mme N'Guessan</b></td>
                                             <td>Anglais</td>
                                             <td>L1 DAS — B</td>
                                             <td class="matricule">••••</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="cellule-nom"><b>M. Bamba</b></td>
                                             <td>Base de données</td>
                                             <td>L1 DAS — A</td>
                                             <td class="matricule">••••</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -297,32 +264,28 @@
                                             <td class="cellule-nom"><b>KOFFI Aya</b></td>
                                             <td>19</td>
                                             <td>L1 DAS — A</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="matricule">ET-2026-015</td>
                                             <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
                                             <td>20</td>
                                             <td>L1 DAS — A</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="matricule">ET-2026-016</td>
                                             <td class="cellule-nom"><b>YAO Marie</b></td>
                                             <td>18</td>
                                             <td>L1 DAS — B</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="matricule">ET-2026-017</td>
                                             <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
                                             <td>19</td>
                                             <td>L1 DAS — A</td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -461,7 +424,7 @@
                     </div>
                 </div>
 
-                <!-- ===== VUES PROFESSEUR ===== -->
+                <!-- VUES PROFESSEUR -->
                 <div data-espace="professeur" style="display:none">
                     <div class="vue actif" id="professeur-accueil">
                         <div class="barre-titre">
@@ -513,8 +476,7 @@
                                 <div class="couronne">🏆</div>
                                 <div class="nom">KOFFI Aya</div>
                                 <div class="details">Meilleure étudiante de la classe</div>
-                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span
-                                        class="legende-moyenne">Moyenne</span></div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span class="legende-moyenne">Moyenne</span></div>
                             </div>
                         </div>
                     </div>
@@ -576,8 +538,7 @@
                                         <option>OUATTARA Seydou</option>
                                     </select></div>
                                 <div><label>Note (0–20)</label><input type="number" min="0" max="20" value="15"></div>
-                                <div class="actions"><button type="reset" class="bouton">Annuler</button><button
-                                        type="submit" class="bouton bouton-ajouter">Enregistrer la note</button></div>
+                                <div class="actions"><button type="reset" class="bouton">Annuler</button><button type="submit" class="bouton bouton-ajouter">Enregistrer la note</button></div>
                             </form>
                         </div>
                         <div class="panneau">
@@ -594,20 +555,17 @@
                                         <tr>
                                             <td class="cellule-nom"><b>KOFFI Aya</b></td>
                                             <td><span class="badge-note bonne">16</span></td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
                                             <td><span class="badge-note">08</span></td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                         <tr>
                                             <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
                                             <td><span class="badge-note moyenne-note">11</span></td>
-                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button
-                                                    class="bouton-discret">🗑</button></td>
+                                            <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -632,8 +590,7 @@
                                         <option>YAO Marie</option>
                                     </select></div>
                                 <div><label>Date</label><input type="date" value="2026-07-07"></div>
-                                <div class="actions"><button type="submit"
-                                        class="bouton bouton-ajouter">Enregistrer</button></div>
+                                <div class="actions"><button type="submit" class="bouton bouton-ajouter">Enregistrer</button></div>
                             </form>
                         </div>
                         <div class="panneau">
@@ -680,21 +637,19 @@
                                 <div class="couronne">🏆</div>
                                 <div class="nom">KOFFI Aya</div>
                                 <div class="details">Meilleure étudiante</div>
-                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span
-                                        class="legende-moyenne">Moyenne</span></div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span class="legende-moyenne">Moyenne</span></div>
                             </div>
                             <div class="panneau carte-podium">
                                 <div class="couronne">📊</div>
                                 <div class="nom">Moyenne générale</div>
                                 <div class="details">Classe L1 DAS — A</div>
-                                <div class="resultat-moyenne"><span class="chiffre-moyenne">13,4</span><span
-                                        class="legende-moyenne">/ 20</span></div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">13,4</span><span class="legende-moyenne">/ 20</span></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- ===== VUES ÉTUDIANT ===== -->
+                <!--  VUES ÉTUDIANT  -->
                 <div data-espace="etudiant" style="display:none">
                     <div class="vue actif" id="etudiant-accueil">
                         <div class="barre-titre">
@@ -794,8 +749,7 @@
                             <div class="corps-panneau">
                                 <div class="etat-vide">
                                     <div class="icone">📗</div>
-                                    <b>Aucune absence enregistrée</b>
-                                    Le cahier est vierge — continue comme ça.
+                                    <b>Aucune absence enregistrée</b> Le cahier est vierge — continue comme ça.
                                 </div>
                             </div>
                         </div>
@@ -813,15 +767,13 @@
                                 <div class="couronne">🏆</div>
                                 <div class="nom">KOFFI Aya</div>
                                 <div class="details">Meilleure étudiante — c'est toi !</div>
-                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span
-                                        class="legende-moyenne">Moyenne</span></div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span class="legende-moyenne">Moyenne</span></div>
                             </div>
                             <div class="panneau carte-podium">
                                 <div class="couronne">📊</div>
                                 <div class="nom">Moyenne générale</div>
                                 <div class="details">Classe L1 DAS — A</div>
-                                <div class="resultat-moyenne"><span class="chiffre-moyenne">13,4</span><span
-                                        class="legende-moyenne">/ 20</span></div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">13,4</span><span class="legende-moyenne">/ 20</span></div>
                             </div>
                         </div>
                     </div>
