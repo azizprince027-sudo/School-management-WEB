@@ -5,12 +5,175 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School-management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tableauCommun.css">
     <link rel="stylesheet" href="tableauEtud.css">
 </head>
 
 <body>
 
+    <section id="tableau-de-bord" class="visible">
+        <aside class="barre-laterale" id="barre-laterale">
+            <div class="anneaux">
+                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="marque"><span class="sigle">École</span></div>
+            <span class="etiquette-role" id="etiquette-role">etudiant</span>
 
+                <nav id="menu-etudiant" class="groupe-menu">
+                    <button class="element-menu actif" data-vue="etudiant-accueil" onclick="afficherVue('etudiant-accueil',this)"><span class="puce"></span>Tableau de
+                        bord</button>
+                    <button class="element-menu" data-vue="etudiant-notes" onclick="afficherVue('etudiant-notes',this)"><span class="puce"></span>Mes
+                        notes</button>
+                    <button class="element-menu" data-vue="etudiant-absences" onclick="afficherVue('etudiant-absences',this)"><span class="puce"></span>Mes
+                        absences</button>
+                    <button class="element-menu" data-vue="etudiant-statistiques" onclick="afficherVue('etudiant-statistiques',this)"><span
+                            class="puce"></span>Statistiques</button>
+                </nav>
+
+            <div class="pied-barre-laterale">
+                <div class="profil-utilisateur">
+                    <div class="avatar-utilisateur" id="avatar-utilisateur">K</div>
+                    <div class="identite-utilisateur"><b id="nom-utilisateur">KOFFI Aya</b><span id="role-utilisateur">Étudiant</span></div>
+                </div>
+                <button class="bouton-deconnexion" onclick="deconnecter()">Déconnexion</button>
+            </div>
+        </aside>
+
+        <main class="contenu-principal">
+            <button class="bouton-menu" onclick="document.getElementById('barre-laterale').classList.toggle('ouvert')">☰ Menu</button>
+
+                <div data-espace="etudiant">
+                    <div class="vue actif" id="etudiant-accueil">
+                        <div class="barre-titre">
+                            <div>
+                                <h1>Tableau de bord</h1>
+                                <p class="sous-titre">KOFFI Aya · L1 DAS — A</p>
+                            </div>
+                            <div class="date-jour texte-code">mar. 07 juil. 2026</div>
+                        </div>
+                        <div class="bloc-statistiques">
+                            <div class="carte-statistique">
+                                <div class="libelle">Ma moyenne</div>
+                                <div class="valeur">17,2</div>
+                                <div class="variation">/20</div>
+                            </div>
+                            <div class="carte-statistique">
+                                <div class="libelle">Absences non justifiées</div>
+                                <div class="valeur">0</div>
+                                <div class="variation">rien à signaler</div>
+                            </div>
+                            <div class="carte-statistique">
+                                <div class="libelle">Rang dans la classe</div>
+                                <div class="valeur">1ᵉʳ</div>
+                                <div class="variation">sur 32</div>
+                            </div>
+                        </div>
+                        <div class="panneau">
+                            <div class="entete-panneau">
+                                <h3>Mes dernières notes</h3>
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="cellule-nom"><b>Mathématiques</b></td>
+                                        <td><span class="badge-note bonne">16</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cellule-nom"><b>Algorithmique</b></td>
+                                        <td><span class="badge-note bonne">18</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="cellule-nom"><b>Anglais</b></td>
+                                        <td><span class="badge-note moyenne-note">14</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="vue" id="etudiant-notes">
+                        <div class="barre-titre">
+                            <div>
+                                <h1>Mes notes</h1>
+                                <p class="sous-titre">Moyenne générale : 17,2 / 20</p>
+                            </div>
+                        </div>
+                        <div class="panneau">
+                            <div class="corps-panneau">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Matière</th>
+                                            <th>Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="cellule-nom"><b>Mathématiques</b></td>
+                                            <td><span class="badge-note bonne">16</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cellule-nom"><b>Algorithmique</b></td>
+                                            <td><span class="badge-note bonne">18</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cellule-nom"><b>Base de données</b></td>
+                                            <td><span class="badge-note bonne">17</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cellule-nom"><b>Anglais</b></td>
+                                            <td><span class="badge-note moyenne-note">14</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vue" id="etudiant-absences">
+                        <div class="barre-titre">
+                            <div>
+                                <h1>Mes absences</h1>
+                                <p class="sous-titre">Historique complet</p>
+                            </div>
+                        </div>
+                        <div class="panneau">
+                            <div class="corps-panneau">
+                                <div class="etat-vide">
+                                    <div class="icone">📗</div>
+                                    <b>Aucune absence enregistrée</b> Le cahier est vierge — continue comme ça.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vue" id="etudiant-statistiques">
+                        <div class="barre-titre">
+                            <div>
+                                <h1>Statistiques de classe</h1>
+                                <p class="sous-titre">L1 DAS — A</p>
+                            </div>
+                        </div>
+                        <div class="deux-colonnes">
+                            <div class="panneau carte-podium">
+                                <div class="couronne">🏆</div>
+                                <div class="nom">KOFFI Aya</div>
+                                <div class="details">Meilleure étudiante — c'est toi !</div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">17,2</span><span class="legende-moyenne">Moyenne</span></div>
+                            </div>
+                            <div class="panneau carte-podium">
+                                <div class="couronne">📊</div>
+                                <div class="nom">Moyenne générale</div>
+                                <div class="details">Classe L1 DAS — A</div>
+                                <div class="resultat-moyenne"><span class="chiffre-moyenne">13,4</span><span class="legende-moyenne">/ 20</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </main>
+    </section>
 
     <script src="tableauEtud.js"></script>
 </body>
