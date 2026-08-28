@@ -54,7 +54,7 @@ server.use(notFoundHandler);
 server.use(errorHandler);
 
 server.listen(PORT, () => {
-    console.log(`Server lance sur ${process.env.baseURL}${PORT}`);
+    console.log(`Server lance sur ${process.env.SERVER_URL}${PORT}`);
 });
 
 module.exports = { server };

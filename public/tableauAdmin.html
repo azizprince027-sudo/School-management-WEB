@@ -1,18 +1,20 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>School-management</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="tableauCommun.css">
-    <link rel="stylesheet" href="tableauAdmin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="tableauCommun.css" />
+    <link rel="stylesheet" href="tableauAdmin.css" />
 </head>
 
 <body>
-
+    <!-- tableau de bord admin -->
     <section id="tableau-de-bord" class="visible">
         <aside class="barre-laterale" id="barre-laterale">
             <div class="anneaux">
@@ -22,29 +24,47 @@
             <span class="etiquette-role" id="etiquette-role">admin</span>
 
             <nav id="menu-admin" class="groupe-menu">
-                <button class="element-menu actif" data-vue="admin-accueil" onclick="afficherVue('admin-accueil',this)"><span class="puce"></span>Tableau de
-                        bord</button>
-                <button class="element-menu" data-vue="admin-professeurs" onclick="afficherVue('admin-professeurs',this)"><span
-                            class="puce"></span>Professeurs</button>
-                <button class="element-menu" data-vue="admin-etudiants" onclick="afficherVue('admin-etudiants',this)"><span
-                            class="puce"></span>Étudiants</button>
-                <button class="element-menu" data-vue="admin-matieres" onclick="afficherVue('admin-matieres',this)"><span class="puce"></span>Matières</button>
-                <button class="element-menu" data-vue="admin-absences" onclick="afficherVue('admin-absences',this)"><span class="puce"></span>Absences</button>
-                <button class="element-menu" data-vue="admin-utilisateurs" onclick="afficherVue('admin-utilisateurs',this)"><span
-                            class="puce"></span>Utilisateurs</button>
+                <button class="element-menu actif" data-vue="admin-accueil"
+                    onclick="afficherVue('admin-accueil', this)">
+                    <span class="puce"></span>Tableau de bord
+                </button>
+                <button class="element-menu" data-vue="admin-professeurs"
+                    onclick="afficherVue('admin-professeurs', this)">
+                    <span class="puce"></span>Professeurs
+                </button>
+                <button class="element-menu" data-vue="admin-etudiants" onclick="afficherVue('admin-etudiants', this)">
+                    <span class="puce"></span>Étudiants
+                </button>
+                <button class="element-menu" data-vue="admin-matieres" onclick="afficherVue('admin-matieres', this)">
+                    <span class="puce"></span>Matières
+                </button>
+                <button class="element-menu" data-vue="admin-absences" onclick="afficherVue('admin-absences', this)">
+                    <span class="puce"></span>Absences
+                </button>
+                <button class="element-menu" data-vue="admin-utilisateurs"
+                    onclick="afficherVue('admin-utilisateurs', this)">
+                    <span class="puce"></span>Utilisateurs
+                </button>
             </nav>
 
             <div class="pied-barre-laterale">
                 <div class="profil-utilisateur">
                     <div class="avatar-utilisateur" id="avatar-utilisateur">A</div>
-                    <div class="identite-utilisateur"><b id="nom-utilisateur">Admin</b><span id="role-utilisateur">Administrateur</span></div>
+                    <div class="identite-utilisateur">
+                        <b id="nom-utilisateur">Admin</b><span id="role-utilisateur">Administrateur</span>
+                    </div>
                 </div>
-                <button class="bouton-deconnexion" onclick="deconnecter()">Déconnexion</button>
+                <button class="bouton-deconnexion" onclick="deconnecter()">
+                    Déconnexion
+                </button>
             </div>
         </aside>
-
+        <!-- contenu principal -->
         <main class="contenu-principal">
-            <button class="bouton-menu" onclick="document.getElementById('barre-laterale').classList.toggle('ouvert')">☰ Menu</button>
+            <button class="bouton-menu" onclick="
+            document.getElementById('barre-laterale').classList.toggle('ouvert')">
+                ☰ Menu
+            </button>
 
             <div data-espace="admin">
                 <div class="vue actif" id="admin-accueil">
@@ -81,19 +101,34 @@
                         <div class="entete-panneau">
                             <div>
                                 <h3>Journal d'activité</h3>
-                                <div class="description">logs/app.log — dernières actions</div>
+                                <div class="description">
+                                    logs/app.log — dernières actions
+                                </div>
                             </div>
                         </div>
                         <div class="liste-journal">
-                            <div class="ligne-journal"><span>07:58:12</span><span class="niveau INFO">INFO</span><span>Connexion réussie — Admin</span></div>
-                            <div class="ligne-journal"><span>07:41:03</span><span class="niveau INFO">INFO</span><span>Note ajoutée — KOFFI Aya, Mathématiques,
-                                        16/20</span></div>
-                            <div class="ligne-journal"><span>07:22:47</span><span class="niveau WARNING">WARNING</span><span>Suppression refusée — matière liée à
-                                        des notes existantes</span></div>
-                            <div class="ligne-journal"><span>06:55:19</span><span class="niveau ERROR">ERROR</span><span>Connexion échouée — code d'accès invalide
-                                        (Professeur)</span></div>
-                            <div class="ligne-journal"><span>06:30:02</span><span class="niveau INFO">INFO</span><span>Absence enregistrée — TRAORÉ Ibrahim, non
-                                        justifiée</span></div>
+                            <div class="ligne-journal">
+                                <span>07:58:12</span><span class="niveau INFO">INFO</span><span>Connexion réussie —
+                                    Admin</span>
+                            </div>
+                            <div class="ligne-journal">
+                                <span>07:41:03</span><span class="niveau INFO">INFO</span><span>Note ajoutée — KOFFI
+                                    Aya, Mathématiques, 16/20</span>
+                            </div>
+                            <div class="ligne-journal">
+                                <span>07:22:47</span><span class="niveau WARNING">WARNING</span><span>Suppression
+                                    refusée — matière liée à des notes
+                                    existantes</span>
+                            </div>
+                            <div class="ligne-journal">
+                                <span>06:55:19</span><span class="niveau ERROR">ERROR</span><span>Connexion échouée —
+                                    code d'accès invalide
+                                    (Professeur)</span>
+                            </div>
+                            <div class="ligne-journal">
+                                <span>06:30:02</span><span class="niveau INFO">INFO</span><span>Absence enregistrée —
+                                    TRAORÉ Ibrahim, non justifiée</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,7 +139,9 @@
                             <h1>Professeurs</h1>
                             <p class="sous-titre">Affectation aux matières et classes</p>
                         </div>
-                        <button class="bouton bouton-ajouter">+ Ajouter un professeur</button>
+                        <button class="bouton bouton-ajouter">
+                            + Ajouter un professeur
+                        </button>
                     </div>
                     <div class="panneau">
                         <div class="corps-panneau">
@@ -124,28 +161,40 @@
                                         <td>Mathématiques</td>
                                         <td>L1 DAS — A</td>
                                         <td class="matricule">••••</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>M. Diallo</b></td>
                                         <td>Algorithmique</td>
                                         <td>L1 DAS — A</td>
                                         <td class="matricule">••••</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>Mme N'Guessan</b></td>
                                         <td>Anglais</td>
                                         <td>L1 DAS — B</td>
                                         <td class="matricule">••••</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>M. Bamba</b></td>
                                         <td>Base de données</td>
                                         <td>L1 DAS — A</td>
                                         <td class="matricule">••••</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,7 +208,9 @@
                             <h1>Étudiants</h1>
                             <p class="sous-titre">128 étudiants inscrits</p>
                         </div>
-                        <button class="bouton bouton-ajouter">+ Ajouter un étudiant</button>
+                        <button class="bouton bouton-ajouter">
+                            + Ajouter un étudiant
+                        </button>
                     </div>
                     <div class="panneau">
                         <div class="corps-panneau">
@@ -179,28 +230,40 @@
                                         <td class="cellule-nom"><b>KOFFI Aya</b></td>
                                         <td>19</td>
                                         <td>L1 DAS — A</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="matricule">ET-2026-015</td>
                                         <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
                                         <td>20</td>
                                         <td>L1 DAS — A</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="matricule">ET-2026-016</td>
                                         <td class="cellule-nom"><b>YAO Marie</b></td>
                                         <td>18</td>
                                         <td>L1 DAS — B</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="matricule">ET-2026-017</td>
                                         <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
                                         <td>19</td>
                                         <td>L1 DAS — A</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button
+                                                class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -212,9 +275,13 @@
                     <div class="barre-titre">
                         <div>
                             <h1>Matières</h1>
-                            <p class="sous-titre">Affectation d'un professeur par matière</p>
+                            <p class="sous-titre">
+                                Affectation d'un professeur par matière
+                            </p>
                         </div>
-                        <button class="bouton bouton-ajouter">+ Ajouter une matière</button>
+                        <button class="bouton bouton-ajouter">
+                            + Ajouter une matière
+                        </button>
                     </div>
                     <div class="panneau">
                         <div class="corps-panneau">
@@ -230,22 +297,30 @@
                                     <tr>
                                         <td class="cellule-nom"><b>Mathématiques</b></td>
                                         <td>Mme Kouadio</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>Algorithmique</b></td>
                                         <td>M. Diallo</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>Base de données</b></td>
                                         <td>M. Bamba</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>Anglais</b></td>
                                         <td>Mme N'Guessan</td>
-                                        <td class="actions-ligne"><button class="bouton-discret">🗑</button></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -276,21 +351,25 @@
                                         <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
                                         <td>L1 DAS — A</td>
                                         <td class="matricule">06/07/2026</td>
-                                        <td><span class="etiquette-statut etiquette-non-justifiee">Non
-                                                    justifiée</span></td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-non-justifiee">Non justifiée</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>YAO Marie</b></td>
                                         <td>L1 DAS — B</td>
                                         <td class="matricule">05/07/2026</td>
-                                        <td><span class="etiquette-statut etiquette-justifiee">Justifiée</span></td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-justifiee">Justifiée</span>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
                                         <td>L1 DAS — A</td>
                                         <td class="matricule">04/07/2026</td>
-                                        <td><span class="etiquette-statut etiquette-non-justifiee">Non
-                                                    justifiée</span></td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-non-justifiee">Non justifiée</span>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -318,18 +397,23 @@
                                 <tbody>
                                     <tr>
                                         <td class="cellule-nom"><b>Admin</b></td>
-                                        <td><span class="etiquette-statut etiquette-admin">admin</span></td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-admin">admin</span>
+                                        </td>
                                         <td class="matricule">Admin</td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>Mme Kouadio</b></td>
-                                        <td><span class="etiquette-statut etiquette-professeur">professeur</span>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-professeur">professeur</span>
                                         </td>
                                         <td class="matricule">Kouadio</td>
                                     </tr>
                                     <tr>
                                         <td class="cellule-nom"><b>KOFFI Aya</b></td>
-                                        <td><span class="etiquette-statut etiquette-etudiant">étudiant</span></td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-etudiant">étudiant</span>
+                                        </td>
                                         <td class="matricule">ET-2026-014</td>
                                     </tr>
                                 </tbody>

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/azizprince027-sudo/School-management-WEB#readme",
   "dependencies": {
+    "@tursodatabase/serverless": "^1.4.0",
     "better-sqlite3": "^12.11.1",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
