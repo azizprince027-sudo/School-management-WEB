@@ -3,14 +3,14 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide } = require('../utils/validation.js');
 
 
-function ajouterUser(name, role, codeAcces) {
+    async function ajouterUser (name, role, codeAcces) {
     if (!NonVide(name) || !NonVide(role) || !NonVide(codeAcces)) {
         logWarning(`Champs invalides pour ajout utilisateur : ${name}`);
         return null;
     }
     try {
-        const stmt = db.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
-        const result = stmt.run(name, role, codeAcces);
+        const stmt = await db.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
+        const result = await stmt.run(name, role, codeAcces);
         logInfo(`Utilisateur ajoute : ${name} (${role})`);
         return result.lastInsertRowid;
     } catch (err) {
@@ -21,13 +21,13 @@ function ajouterUser(name, role, codeAcces) {
 
 // La fonction "ajouterUser" est utilisée pour ajouter un nouvel utilisateur (professeur) à la base de données. Elle prend trois paramètres : "name" qui représente le nom de l'utilisateur, "role" qui représente le rôle de l'utilisateur (dans ce cas, 'professeur'), et "codeAcces" qui représente le code d'accès de l'utilisateur. La fonction utilise une requête SQL préparée pour insérer ces informations dans la table "users". Après l'insertion, un message d'information est enregistré dans le journal pour indiquer que l'utilisateur a été ajouté avec succès, et la fonction retourne l'identifiant de la nouvelle ligne insérée dans la base de données.
 
-function supprimerUser(id) {
-    const supprimer = db.transaction((id) => {
+    function supprimerUser(id) {
+    const supprimer = db.transaction(async(id) => {
         // On supprime d'abord la fiche professeur liee a cet utilisateur, s'il y en a une
         // (evite un teacher orphelin si on supprime via /users au lieu de /teachers)
-        db.prepare('DELETE FROM teachers WHERE user_id = ?').run(id);
+        await db.prepare('DELETE FROM teachers WHERE user_id = ?').run(id);
 
-        return db.prepare('DELETE FROM users WHERE id = ?').run(id);
+        return await db.prepare('DELETE FROM users WHERE id = ?').run(id);
     });
 
     try {
