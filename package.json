@@ -1,37 +1,37 @@
 {
-  "name": "school-management-web",
-  "version": "1.2.0",
-  "description": "Système de gestion d'école simplifié en Web",
-  "main": "main.js",
-  "scripts": {
-    "start": "nodemon main.js",
-    "server": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/azizprince027-sudo/School-management-WEB.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/azizprince027-sudo/School-management-WEB/issues"
-  },
-  "homepage": "https://github.com/azizprince027-sudo/School-management-WEB#readme",
-  "dependencies": {
-    "@tursodatabase/serverless": "^1.4.0",
-    "better-sqlite3": "^12.11.1",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "express-session": "^1.19.0",
-    "jsonwebtoken": "^9.0.3",
-    "readline-sync": "^1.4.10"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
-  }
+    "name": "school-management-web",
+    "version": "1.2.0",
+    "description": "Système de gestion d'école simplifié en Web",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "server": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/azizprince027-sudo/School-management-WEB.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "commonjs",
+    "bugs": {
+        "url": "https://github.com/azizprince027-sudo/School-management-WEB/issues"
+    },
+    "homepage": "https://github.com/azizprince027-sudo/School-management-WEB#readme",
+    "dependencies": {
+        "@tursodatabase/serverless": "^1.4.0",
+        "better-sqlite3": "^12.11.1",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "express-session": "^1.19.0",
+        "jsonwebtoken": "^9.0.3",
+        "readline-sync": "^1.4.10"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.14"
+    }
 }
