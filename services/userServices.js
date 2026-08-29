@@ -2,8 +2,7 @@ const db = require('../db/database.js');
 const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide } = require('../utils/validation.js');
 
-
-    async function ajouterUser (name, role, codeAcces) {
+async function ajouterUser(name, role, codeAcces) {
     if (!NonVide(name) || !NonVide(role) || !NonVide(codeAcces)) {
         logWarning(`Champs invalides pour ajout utilisateur : ${name}`);
         return null;
@@ -19,19 +18,16 @@ const { NonVide } = require('../utils/validation.js');
     }
 }
 
-// La fonction "ajouterUser" est utilisée pour ajouter un nouvel utilisateur (professeur) à la base de données. Elle prend trois paramètres : "name" qui représente le nom de l'utilisateur, "role" qui représente le rôle de l'utilisateur (dans ce cas, 'professeur'), et "codeAcces" qui représente le code d'accès de l'utilisateur. La fonction utilise une requête SQL préparée pour insérer ces informations dans la table "users". Après l'insertion, un message d'information est enregistré dans le journal pour indiquer que l'utilisateur a été ajouté avec succès, et la fonction retourne l'identifiant de la nouvelle ligne insérée dans la base de données.
-
-    function supprimerUser(id) {
-    const supprimer = db.transaction(async(id) => {
-        // On supprime d'abord la fiche professeur liee a cet utilisateur, s'il y en a une
-        // (evite un teacher orphelin si on supprime via /users au lieu de /teachers)
-        await db.prepare('DELETE FROM teachers WHERE user_id = ?').run(id);
-
-        return await db.prepare('DELETE FROM users WHERE id = ?').run(id);
+async function supprimerUser(id) {
+    const supprimer = db.transactionAsync(async(tx, id) => {
+        const s1 = await tx.prepare('DELETE FROM teachers WHERE user_id = ?');
+        await s1.run(id);
+        const s2 = await tx.prepare('DELETE FROM users WHERE id = ?');
+        return await s2.run(id);
     });
 
     try {
-        const result = supprimer(id);
+        const result = await supprimer(id);
         if (result.changes === 0) {
             logWarning(`Suppression impossible : utilisateur ${id} introuvable`);
             return false;
@@ -44,16 +40,14 @@ const { NonVide } = require('../utils/validation.js');
     }
 }
 
-// La fonction "supprimerUser" est utilisée pour supprimer un utilisateur de la base de données en fonction de son identifiant. Elle prend un paramètre "id" qui représente l'identifiant de l'utilisateur à supprimer. La fonction utilise une requête SQL préparée pour supprimer l'utilisateur correspondant à cet identifiant de la table "users". Après la suppression, un message d'information est enregistré dans le journal pour indiquer que l'utilisateur a été supprimé avec succès, en précisant l'identifiant de l'utilisateur supprimé.
-
-function listerUsers() {
+async function listerUsers() {
     try {
-        return db.prepare('SELECT id, name, role FROM users').all();
+        const stmt = await db.prepare('SELECT id, name, role FROM users');
+        return await stmt.all();
     } catch (err) {
         logWarning(`Echec liste utilisateurs : ${err.message}`);
         return [];
     }
 }
 
-// La fonction "listerUsers" est utilisée pour récupérer la liste de tous les utilisateurs présents dans la base de données. Elle exécute une requête SQL préparée qui sélectionne toutes les colonnes de la table "users" et retourne le résultat sous forme de tableau d'objets. Chaque objet représente un utilisateur avec ses propriétés correspondantes (id, name, role, code_acces). Cette fonction peut être utilisée pour afficher la liste des utilisateurs dans l'application ou pour effectuer d'autres opérations nécessitant l'accès à tous les utilisateurs.
 module.exports = { ajouterUser, supprimerUser, listerUsers };

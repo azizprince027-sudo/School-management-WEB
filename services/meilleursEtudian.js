@@ -1,11 +1,10 @@
 const db = require('../db/database.js');
 const { logWarning } = require('../utils/logger.js');
 const { DateValide } = require('../utils/validation.js');
-// Meilleur etudiant d'une classe selon sa moyenne
 
-function meilleurEtudiant(classe) {
+async function meilleurEtudiant(classe) {
     try {
-        const result = db.prepare(`
+        const stmt = await db.prepare(`
             SELECT students.matricule, students.nom, students.prenom, AVG(grades.note) AS moyenne
             FROM students
             JOIN grades ON students.id = grades.student_id
@@ -13,7 +12,8 @@ function meilleurEtudiant(classe) {
             GROUP BY students.id
             ORDER BY moyenne DESC
             LIMIT 1
-        `).get(classe);
+        `);
+        const result = await stmt.get(classe);
         return result || null;
     } catch (err) {
         logWarning(`Echec recherche meilleur etudiant classe ${classe} : ${err.message}`);
@@ -21,16 +21,15 @@ function meilleurEtudiant(classe) {
     }
 }
 
-// Moyenne generale de la classe (moyenne de toutes les notes de la classe)
-
-function moyenneGeneraleClasse(classe) {
+async function moyenneGeneraleClasse(classe) {
     try {
-        const result = db.prepare(`
+        const stmt = await db.prepare(`
             SELECT AVG(grades.note) AS moyenne
             FROM grades
             JOIN students ON grades.student_id = students.id
             WHERE students.classe = ?
-        `).get(classe);
+        `);
+        const result = await stmt.get(classe);
         return result.moyenne !== null ? Number(result.moyenne.toFixed(2)) : null;
     } catch (err) {
         logWarning(`Echec calcul moyenne generale classe ${classe} : ${err.message}`);
@@ -38,26 +37,24 @@ function moyenneGeneraleClasse(classe) {
     }
 }
 
-// Nombre d'absences pour une date donnee (toute l'ecole ou une classe)
-
-function compterAbsencesJour(date, classe = null) {
+async function compterAbsencesJour(date, classe = null) {
     if (!DateValide(date)) {
         logWarning(`Date invalide pour comptage absences : ${date}`);
         return null;
     }
     try {
         if (classe) {
-            const row = db.prepare(`
+            const stmt = await db.prepare(`
                 SELECT COUNT(*) AS total
                 FROM absences
                 JOIN students ON absences.student_id = students.id
                 WHERE absences.date = ? AND students.classe = ?
-            `).get(date, classe);
+            `);
+            const row = await stmt.get(date, classe);
             return row.total;
         }
-        const row = db.prepare(
-            'SELECT COUNT(*) AS total FROM absences WHERE date = ?'
-        ).get(date);
+        const stmt = await db.prepare('SELECT COUNT(*) AS total FROM absences WHERE date = ?');
+        const row = await stmt.get(date);
         return row.total;
     } catch (err) {
         logWarning(`Echec comptage absences du ${date} : ${err.message}`);

@@ -1,15 +1,15 @@
-    const db = require('../db/database.js');
-    const { logInfo, logWarning } = require('../utils/logger.js');
-    const { NonVide } = require('../utils/validation.js');
+const db = require('../db/database.js');
+const { logInfo, logWarning } = require('../utils/logger.js');
+const { NonVide } = require('../utils/validation.js');
 
-    function ajouterMatiere(nom, teacherId = null) {
+async function ajouterMatiere(nom, teacherId = null) {
     if (!NonVide(nom)) {
         logWarning('Ajout matiere impossible : nom vide');
         return null;
     }
     try {
-        const stmt = db.prepare('INSERT INTO subjects (nom, teacher_id) VALUES (?, ?)');
-        const result = stmt.run(nom, teacherId);
+        const stmt = await db.prepare('INSERT INTO subjects (nom, teacher_id) VALUES (?, ?)');
+        const result = await stmt.run(nom, teacherId);
         logInfo(`Matiere ajoutee : ${nom}`);
         return result.lastInsertRowid;
     } catch (err) {
@@ -18,9 +18,10 @@
     }
 }
 
-    function affecterProfesseur(subjectId, teacherId) {
+async function affecterProfesseur(subjectId, teacherId) {
     try {
-        const result = db.prepare('UPDATE subjects SET teacher_id = ? WHERE id = ?').run(teacherId, subjectId);
+        const stmt = await db.prepare('UPDATE subjects SET teacher_id = ? WHERE id = ?');
+        const result = await stmt.run(teacherId, subjectId);
         if (result.changes === 0) {
             logWarning(`Affectation impossible : matiere ${subjectId} introuvable`);
             return false;
@@ -33,22 +34,24 @@
     }
 }
 
-    function listerMatieres() {
+async function listerMatieres() {
     try {
-        return db.prepare(`
+        const stmt = await db.prepare(`
             SELECT subjects.id, subjects.nom, teachers.nom AS professeur
             FROM subjects
             LEFT JOIN teachers ON subjects.teacher_id = teachers.id
-        `).all();
+        `);
+        return await stmt.all();
     } catch (err) {
         logWarning(`Echec liste matieres : ${err.message}`);
         return [];
     }
 }
 
-    function supprimerMatiere(subjectId) {
+async function supprimerMatiere(subjectId) {
     try {
-        const result = db.prepare('DELETE FROM subjects WHERE id = ?').run(subjectId);
+        const stmt = await db.prepare('DELETE FROM subjects WHERE id = ?');
+        const result = await stmt.run(subjectId);
         if (result.changes === 0) {
             logWarning(`Suppression impossible : matiere ${subjectId} introuvable`);
             return null;
@@ -61,4 +64,4 @@
     }
 }
 
-    module.exports = { ajouterMatiere, affecterProfesseur, listerMatieres, supprimerMatiere };
+module.exports = { ajouterMatiere, affecterProfesseur, listerMatieres, supprimerMatiere };
