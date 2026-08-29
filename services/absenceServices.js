@@ -11,7 +11,7 @@ async function enregistrerAbsence(studentId, date) {
         const stmt = await db.prepare(
             "INSERT INTO absences (student_id, date, status) VALUES (?, ?, 'non_justifiee')"
         );
-        await stmt.run(studentId, date);
+        await stmt.run([studentId, date]);
         logInfo(`Absence enregistree : etudiant ${studentId} le ${date}`);
         return true;
     } catch (err) {
@@ -29,7 +29,7 @@ async function marquerStatut(absenceId, status) {
     }
     try {
         const stmt = await db.prepare('UPDATE absences SET status = ? WHERE id = ?');
-        const result = await stmt.run(status, absenceId);
+        const result = await stmt.run([status, absenceId]);
         if (result.changes === 0) {
             logWarning(`Marquage impossible : absence ${absenceId} introuvable`);
             return false;
@@ -45,7 +45,7 @@ async function marquerStatut(absenceId, status) {
 async function historiqueEtudiant(studentId) {
     try {
         const stmt = await db.prepare('SELECT id, student_id, date, status FROM absences WHERE student_id = ?');
-        return await stmt.all(studentId);
+        return await stmt.all([studentId]);
     } catch (err) {
         logWarning(`Echec recuperation historique etudiant ${studentId} : ${err.message}`);
         return [];
@@ -60,7 +60,7 @@ async function historiqueClasse(classe) {
             JOIN students ON absences.student_id = students.id
             WHERE students.classe = ?
         `);
-        return await stmt.all(classe);
+        return await stmt.all([classe]);
     } catch (err) {
         logWarning(`Echec recuperation historique classe ${classe} : ${err.message}`);
         return [];

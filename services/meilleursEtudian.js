@@ -13,7 +13,7 @@ async function meilleurEtudiant(classe) {
             ORDER BY moyenne DESC
             LIMIT 1
         `);
-        const result = await stmt.get(classe);
+        const result = await stmt.get([classe]);
         return result || null;
     } catch (err) {
         logWarning(`Echec recherche meilleur etudiant classe ${classe} : ${err.message}`);
@@ -29,7 +29,7 @@ async function moyenneGeneraleClasse(classe) {
             JOIN students ON grades.student_id = students.id
             WHERE students.classe = ?
         `);
-        const result = await stmt.get(classe);
+        const result = await stmt.get([classe]);
         return result.moyenne !== null ? Number(result.moyenne.toFixed(2)) : null;
     } catch (err) {
         logWarning(`Echec calcul moyenne generale classe ${classe} : ${err.message}`);
@@ -50,11 +50,11 @@ async function compterAbsencesJour(date, classe = null) {
                 JOIN students ON absences.student_id = students.id
                 WHERE absences.date = ? AND students.classe = ?
             `);
-            const row = await stmt.get(date, classe);
+            const row = await stmt.get([date, classe]);
             return row.total;
         }
         const stmt = await db.prepare('SELECT COUNT(*) AS total FROM absences WHERE date = ?');
-        const row = await stmt.get(date);
+        const row = await stmt.get([date]);
         return row.total;
     } catch (err) {
         logWarning(`Echec comptage absences du ${date} : ${err.message}`);

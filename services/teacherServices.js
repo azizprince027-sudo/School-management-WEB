@@ -10,10 +10,10 @@ async function ajouterProfesseur(nom, matiere, classe, codeAcces) {
 
     const creerProfesseur = db.transactionAsync(async(tx, nom, matiere, classe, codeAcces) => {
         const userStmt = await tx.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
-        const userResult = await userStmt.run(nom, 'professeur', codeAcces);
+        const userResult = await userStmt.run([nom, 'professeur', codeAcces]);
 
         const teacherStmt = await tx.prepare('INSERT INTO teachers (user_id, nom, matiere, classe) VALUES (?, ?, ?, ?)');
-        const result = await teacherStmt.run(userResult.lastInsertRowid, nom, matiere, classe);
+        const result = await teacherStmt.run([userResult.lastInsertRowid, nom, matiere, classe]);
 
         return result.lastInsertRowid;
     });
@@ -36,7 +36,7 @@ async function modifierProfesseur(id, champs) {
     }
 
     const profStmt = await db.prepare('SELECT user_id FROM teachers WHERE id = ?');
-    const prof = await profStmt.get(id);
+    const prof = await profStmt.get([id]);
     if (!prof) {
         logWarning(`Professeur introuvable pour modification : id ${id}`);
         return false;
@@ -44,9 +44,9 @@ async function modifierProfesseur(id, champs) {
 
     const modifier = db.transactionAsync(async(tx, id, userId) => {
         const s1 = await tx.prepare('UPDATE teachers SET nom = ?, matiere = ?, classe = ? WHERE id = ?');
-        await s1.run(nom, matiere, classe, id);
+        await s1.run([nom, matiere, classe, id]);
         const s2 = await tx.prepare('UPDATE users SET name = ? WHERE id = ?');
-        await s2.run(nom, userId);
+        await s2.run([nom, userId]);
     });
 
     try {
@@ -61,7 +61,7 @@ async function modifierProfesseur(id, champs) {
 
 async function supprimerProfesseur(id) {
     const profStmt = await db.prepare('SELECT user_id FROM teachers WHERE id = ?');
-    const prof = await profStmt.get(id);
+    const prof = await profStmt.get([id]);
     if (!prof) {
         logWarning(`Professeur introuvable pour suppression : id ${id}`);
         return null;
@@ -69,9 +69,9 @@ async function supprimerProfesseur(id) {
 
     const supprimer = db.transactionAsync(async(tx, id, userId) => {
         const s1 = await tx.prepare('DELETE FROM teachers WHERE id = ?');
-        await s1.run(id);
+        await s1.run([id]);
         const s2 = await tx.prepare('DELETE FROM users WHERE id = ?');
-        await s2.run(userId);
+        await s2.run([userId]);
     });
 
     try {
@@ -87,7 +87,7 @@ async function supprimerProfesseur(id) {
 async function rechercherProfesseur(id) {
     try {
         const stmt = await db.prepare('SELECT id, user_id, nom, matiere, classe FROM teachers WHERE id = ?');
-        return await stmt.get(id);
+        return await stmt.get([id]);
     } catch (err) {
         logWarning(`Echec recherche professeur ${id} : ${err.message}`);
         return null;
@@ -107,7 +107,7 @@ async function listerProfesseurs() {
 async function getProfesseurParUserId(userId) {
     try {
         const stmt = await db.prepare('SELECT id, user_id, nom, matiere, classe FROM teachers WHERE user_id = ?');
-        return await stmt.get(userId);
+        return await stmt.get([userId]);
     } catch (err) {
         logWarning(`Echec recherche professeur par user_id ${userId} : ${err.message}`);
         return null;

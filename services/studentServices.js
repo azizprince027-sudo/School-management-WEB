@@ -11,7 +11,7 @@ async function ajouterEtudiant(matricule, nom, prenom, age, classe) {
         const stmt = await db.prepare(
             'INSERT INTO students (matricule, nom, prenom, age, classe) VALUES (?, ?, ?, ?, ?)'
         );
-        await stmt.run(matricule, nom, prenom, age, classe);
+        await stmt.run([matricule, nom, prenom, age, classe]);
         logInfo(`Etudiant ajoute : ${matricule}`);
         return true;
     } catch (err) {
@@ -30,7 +30,7 @@ async function modifierEtudiant(matricule, champs) {
         const stmt = await db.prepare(
             'UPDATE students SET nom = ?, prenom = ?, age = ?, classe = ? WHERE matricule = ?'
         );
-        const result = await stmt.run(nom, prenom, age, classe, matricule);
+        const result = await stmt.run([nom, prenom, age, classe, matricule]);
         if (result.changes === 0) {
             logWarning(`Modification impossible : etudiant ${matricule} introuvable`);
             return false;
@@ -46,7 +46,7 @@ async function modifierEtudiant(matricule, champs) {
 async function supprimerEtudiant(matricule) {
     try {
         const stmt = await db.prepare('DELETE FROM students WHERE matricule = ?');
-        const result = await stmt.run(matricule);
+        const result = await stmt.run([matricule]);
         if (result.changes === 0) return null;
         logInfo(`Etudiant supprime : ${matricule}`);
         return true;
@@ -59,7 +59,7 @@ async function supprimerEtudiant(matricule) {
 async function rechercherEtudiant(matricule) {
     try {
         const stmt = await db.prepare('SELECT * FROM students WHERE matricule = ?');
-        return await stmt.get(matricule);
+        return await stmt.get([matricule]);
     } catch (err) {
         logWarning(`Echec recherche etudiant ${matricule} : ${err.message}`);
         return null;
@@ -70,7 +70,7 @@ async function listerEtudiants(classe = null) {
     try {
         if (classe) {
             const stmt = await db.prepare('SELECT * FROM students WHERE classe = ?');
-            return await stmt.all(classe);
+            return await stmt.all([classe]);
         }
         const stmt = await db.prepare('SELECT * FROM students');
         return await stmt.all();

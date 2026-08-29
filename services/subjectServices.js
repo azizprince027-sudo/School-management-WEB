@@ -9,7 +9,7 @@ async function ajouterMatiere(nom, teacherId = null) {
     }
     try {
         const stmt = await db.prepare('INSERT INTO subjects (nom, teacher_id) VALUES (?, ?)');
-        const result = await stmt.run(nom, teacherId);
+        const result = await stmt.run([nom, teacherId]);
         logInfo(`Matiere ajoutee : ${nom}`);
         return result.lastInsertRowid;
     } catch (err) {
@@ -21,7 +21,7 @@ async function ajouterMatiere(nom, teacherId = null) {
 async function affecterProfesseur(subjectId, teacherId) {
     try {
         const stmt = await db.prepare('UPDATE subjects SET teacher_id = ? WHERE id = ?');
-        const result = await stmt.run(teacherId, subjectId);
+        const result = await stmt.run([teacherId, subjectId]);
         if (result.changes === 0) {
             logWarning(`Affectation impossible : matiere ${subjectId} introuvable`);
             return false;
@@ -51,7 +51,7 @@ async function listerMatieres() {
 async function supprimerMatiere(subjectId) {
     try {
         const stmt = await db.prepare('DELETE FROM subjects WHERE id = ?');
-        const result = await stmt.run(subjectId);
+        const result = await stmt.run([subjectId]);
         if (result.changes === 0) {
             logWarning(`Suppression impossible : matiere ${subjectId} introuvable`);
             return null;

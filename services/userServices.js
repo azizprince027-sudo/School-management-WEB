@@ -9,7 +9,7 @@ async function ajouterUser(name, role, codeAcces) {
     }
     try {
         const stmt = await db.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
-        const result = await stmt.run(name, role, codeAcces);
+        const result = await stmt.run([name, role, codeAcces]);
         logInfo(`Utilisateur ajoute : ${name} (${role})`);
         return result.lastInsertRowid;
     } catch (err) {
@@ -21,9 +21,9 @@ async function ajouterUser(name, role, codeAcces) {
 async function supprimerUser(id) {
     const supprimer = db.transactionAsync(async(tx, id) => {
         const s1 = await tx.prepare('DELETE FROM teachers WHERE user_id = ?');
-        await s1.run(id);
+        await s1.run([id]);
         const s2 = await tx.prepare('DELETE FROM users WHERE id = ?');
-        return await s2.run(id);
+        return await s2.run([id]);
     });
 
     try {
