@@ -1,32 +1,74 @@
-    let roleActuel = "admin";
+// --- Gestion des onglets de rôle ---
+const boutonsRole = document.querySelectorAll('.onglets-role button');
+const zonesChamps = {
+    admin: document.getElementById('champs-admin'),
+    prof: document.getElementById('champs-professeur'),
+    etudiant: document.getElementById('champs-etudiant')
+};
 
-    // Selectionne le role de l'utilisateur (admin/professeur/etudiant) et affiche les champs correspondants.
-    function selectionnerRole(role) {
-    roleActuel = role;
-    document
-        .querySelectorAll(".onglets-role button")
-        .forEach((b) => b.classList.toggle("actif", b.dataset.role === role));
-    document
-        .querySelectorAll(".champs-role")
-        .forEach((f) => (f.style.display = "none"));
-    const idChamps = role === "prof" ? "champs-professeur" : "champs-" + role;
-    document.getElementById(idChamps).style.display = "block";
+let roleActif = 'admin';
+
+boutonsRole.forEach(bouton => {
+    bouton.addEventListener('click', () => {
+        const role = bouton.dataset.role;
+        roleActif = role;
+
+        boutonsRole.forEach(b => b.classList.remove('actif'));
+        bouton.classList.add('actif');
+
+        Object.keys(zonesChamps).forEach(cle => {
+            zonesChamps[cle].style.display = (cle === role) ? 'block' : 'none';
+        });
+    });
+});
+
+// --- Gestion de la soumission du formulaire ---
+const formulaire = document.getElementById('formulaire-connexion');
+
+formulaire.addEventListener('submit', async(event) => {
+    event.preventDefault();
+
+    let url, body;
+
+    if (roleActif === 'etudiant') {
+        url = '/auth/login-etudiant';
+        body = { matricule: document.getElementById('etudiant-matricule').value };
+    } else {
+        url = '/auth/login';
+        const role = (roleActif === 'admin') ? 'admin' : 'professeur';
+        const nomInput = (roleActif === 'admin') ? 'admin-nom' : 'prof-nom';
+        const codeInput = (roleActif === 'admin') ? 'admin-code' : 'prof-code';
+        body = {
+            name: document.getElementById(nomInput).value,
+            codeAcces: document.getElementById(codeInput).value,
+            role: role
+        };
     }
 
-    // Pour l'instant cette fonction redirige juste vers le tableau de bord du role choisi
-    // (donnees fictives cote page de destination).
-    // Reste a faire : appeler /auth/login ou /auth/login-etudiant selon roleActuel,
-    // et transmettre la reponse du serveur a la page de destination.
-    function connecter(event) {
-    if (event) event.preventDefault();
+    try {
+        const reponse = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
 
-    const pageParRole = {
-        admin: "tableauAdmin.html",
-        prof: "tableauProf.html",
-        etudiant: "tableauEtud.html",
-    };
+        const data = await reponse.json();
 
-    window.location.href = pageParRole[roleActuel];
+        if (!reponse.ok) {
+            alert(data.error || 'Erreur de connexion.');
+            return;
+        }
 
-    return false;
+        if (roleActif === 'admin') {
+            window.location.href = 'tableauAdmin.html';
+        } else if (roleActif === 'prof') {
+            window.location.href = 'tableauProf.html';
+        } else {
+            window.location.href = 'tableauEtud.html';
+        }
+
+    } catch (err) {
+        console.error('Erreur reseau :', err);
+        alert('Identifiants invalides.');
     }
+});
