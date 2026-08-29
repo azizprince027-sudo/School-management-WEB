@@ -1,50 +1,38 @@
-const {
-    ajouterNote,
-    modifierNote,
-    supprimerNote,
-    moyenneEtudiant,
-    notesEtudiant
-} = require('../services/gradeServices.js');
+const { ajouterNote, modifierNote, supprimerNote, moyenneEtudiant, notesEtudiant } = require('../services/gradeServices.js');
 
-function creer(req, res) {
+async function creer(req, res) {
     const { studentId, subjectId, note } = req.body;
-    const succes = ajouterNote(studentId, subjectId, note);
-    if (!succes) {
-        return res.status(400).json({ error: 'Note invalide (0-20) .' });
-    }
+    const succes = await ajouterNote(studentId, subjectId, note);
+    if (!succes) return res.status(400).json({ error: 'Note invalide (0-20) .' });
     res.status(201).json({ message: 'Note ajoutee.' });
 }
 
-function modifier(req, res) {
-    const succes = modifierNote(req.params.id, req.body.note);
-    if (!succes) {
-        return res.status(400).json({ error: 'Note invalide .' });
-    }
+async function modifier(req, res) {
+    const succes = await modifierNote(req.params.id, req.body.note);
+    if (!succes) return res.status(400).json({ error: 'Note invalide .' });
     res.json({ message: 'Note modifiee.' });
 }
 
-function supprimer(req, res) {
-    const succes = supprimerNote(req.params.id);
-    if (!succes) {
-        return res.status(404).json({ error: 'Note introuvable.' });
-    }
+async function supprimer(req, res) {
+    const succes = await supprimerNote(req.params.id);
+    if (!succes) return res.status(404).json({ error: 'Note introuvable.' });
     res.json({ message: 'Note supprimee.' });
 }
 
-function moyenne(req, res) {
+async function moyenne(req, res) {
     const { role, id } = req.session.user;
     if (role === 'etudiant' && String(id) !== String(req.params.studentId)) {
         return res.status(403).json({ error: 'Acces refuse : vous ne pouvez consulter que vos propres donnees.' });
     }
-    res.json({ moyenne: moyenneEtudiant(req.params.studentId) });
+    res.json({ moyenne: await moyenneEtudiant(req.params.studentId) });
 }
 
-function notes(req, res) {
+async function notes(req, res) {
     const { role, id } = req.session.user;
     if (role === 'etudiant' && String(id) !== String(req.params.studentId)) {
         return res.status(403).json({ error: 'Acces refuse : vous ne pouvez consulter que vos propres donnees.' });
     }
-    res.json(notesEtudiant(req.params.studentId));
+    res.json(await notesEtudiant(req.params.studentId));
 }
 
 module.exports = { creer, modifier, supprimer, moyenne, notes };

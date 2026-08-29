@@ -6,7 +6,7 @@ async function loginUser(name, codeAcces, role) {
         const stmt = await db.prepare(
             'SELECT * FROM users WHERE name = ? AND code_acces = ? AND role = ?'
         );
-        const user = await stmt.get(name, codeAcces, role);
+        const user = await stmt.get([name, codeAcces, role]);
 
         if (!user) {
             logWarning(`Tentative de connexion echouee pour ${name}`);
@@ -24,7 +24,7 @@ async function loginUser(name, codeAcces, role) {
 async function loginStudent(matricule) {
     try {
         const stmt = await db.prepare('SELECT * FROM students WHERE matricule = ?');
-        const student = await stmt.get(matricule);
+        const student = await stmt.get([matricule]);
 
         if (!student) {
             logWarning(`Matricule inconnu : ${matricule}`);
