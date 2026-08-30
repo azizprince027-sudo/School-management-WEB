@@ -7,8 +7,9 @@
     <title>School-management</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="tableauCommun.css" />
-    <link rel="stylesheet" href="tableauAdmin.css" />
+    <link rel="stylesheet" href="tableauAdmin.css">
+    <link rel="icon" type="image/png" href="ChatGPT Image 30 août 2026, 22_28_36.png" />
+
 </head>
 
 <body>
@@ -46,7 +47,7 @@
                 <div class="profil-utilisateur">
                     <div class="avatar-utilisateur" id="avatar-utilisateur">A</div>
                     <div class="identite-utilisateur">
-                        <b id="nom-utilisateur ">Admin</b><span id="role-utilisateur">Administrateur</span>
+                        <b id="nom-utilisateur"></b><span id="role-utilisateur"></span>
                     </div>
                 </div>
                 <button class="bouton-deconnexion">
@@ -67,27 +68,28 @@
                             <h1>Tableau de bord</h1>
                             <p class="sous-titre">Vue d'ensemble de l'établissement</p>
                         </div>
-                        <div class="date-jour texte-code">mar. 07 juil. 2026</div>
+                        <!-- parties de la dates  -->
+                        <div class="date-jour texte-code" id="date-du-jour"></div>
                     </div>
                     <div class="bloc-statistiques">
                         <div class="carte-statistique">
                             <div class="libelle">Étudiants</div>
-                            <div class="valeur">128</div>
-                            <div class="variation">+4 ce mois</div>
+                            <div class="valeur" id="stat-etudiants"></div>
+                            <div class="variation"></div>
                         </div>
                         <div class="carte-statistique">
                             <div class="libelle">Professeurs</div>
-                            <div class="valeur">14</div>
-                            <div class="variation">+1 ce mois</div>
+                            <div class="valeur" id="stat-professeurs"></div>
+                            <div class="variation"></div>
                         </div>
                         <div class="carte-statistique">
                             <div class="libelle">Matières</div>
-                            <div class="valeur">9</div>
+                            <div class="valeur" id="stat-matieres"></div>
                             <div class="variation">—</div>
                         </div>
                         <div class="carte-statistique">
                             <div class="libelle">Absences non justifiées — aujourd'hui</div>
-                            <div class="valeur">6</div>
+                            <div class="valeur" id="stat-absences-jour"></div>
                             <div class="variation alerte">à traiter</div>
                         </div>
                     </div>
@@ -126,8 +128,8 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="vue " id="admin-professeurs">
+                <!-- Parties des professeurs -->
+                <div class="vue" id="admin-professeurs">
                     <div class="barre-titre">
                         <div>
                             <h1>Professeurs</h1>
@@ -149,8 +151,8 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody id="corps-professeurs">
+                                    <!-- <tr>
                                         <td class="cellule-nom"><b>Mme Kouadio</b></td>
                                         <td>Mathématiques</td>
                                         <td>L1 DAS — A</td>
@@ -185,7 +187,7 @@
                                         <td class="actions-ligne">
                                             <button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -215,7 +217,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="corps-etudiants">
-                                    <tr>
+                                    <!-- <tr>
                                         <td class="matricule">ET-2026-014</td>
                                         <td class="cellule-nom"><b>KOFFI Aya</b></td>
                                         <td>19</td>
@@ -250,13 +252,13 @@
                                         <td class="actions-ligne">
                                             <button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <!-- Parties des matières -->
                 <div class="vue" id="admin-matieres">
                     <div class="barre-titre">
                         <div>
@@ -279,8 +281,8 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody id="corps-matieres">
+                                    <!-- <tr>
                                         <td class="cellule-nom"><b>Mathématiques</b></td>
                                         <td>Mme Kouadio</td>
                                         <td class="actions-ligne">
@@ -307,13 +309,13 @@
                                         <td class="actions-ligne">
                                             <button class="bouton-discret">🗑</button>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <!-- Parties des Absences -->
                 <div class="vue" id="admin-absences">
                     <div class="barre-titre">
                         <div>
@@ -323,6 +325,15 @@
                     </div>
                     <div class="panneau">
                         <div class="corps-panneau">
+                            <div class="formulaire-rapide">
+                                <div>
+                                    <label>Classe</label>
+                                    <input type="text" id="filtre-classe-absences" placeholder="entre une classe">
+                                </div>
+                                <div class="actions">
+                                    <button class="bouton bouton-ajouter" id="bouton-filtrer-absences">Filtrer</button>
+                                </div>
+                            </div>
                             <table>
                                 <thead>
                                     <tr>
@@ -332,13 +343,13 @@
                                         <th>Statut</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
+                                <tbody id="corps-absences">
+                                    <!-- <tr>
+                                        <td class=" cellule-nom "><b>TRAORÉ Ibrahim</b></td>
                                         <td>L1 DAS — A</td>
-                                        <td class="matricule">06/07/2026</td>
+                                        <td class="matricule ">06/07/2026</td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-non-justifiee">Non justifiée</span>
+                                            <span class="etiquette-statut etiquette-non-justifiee ">Non justifiée</span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -346,23 +357,23 @@
                                         <td>L1 DAS — B</td>
                                         <td class="matricule ">05/07/2026</td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-justifiee">Justifiée</span>
+                                            <span class="etiquette-statut etiquette-justifiee ">Justifiée</span>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
+                                        <td class="cellule-nom "><b>OUATTARA Seydou</b></td>
                                         <td>L1 DAS — A</td>
-                                        <td class="matricule">04/07/2026</td>
+                                        <td class="matricule ">04/07/2026</td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-non-justifiee">Non justifiée</span>
+                                            <span class="etiquette-statut etiquette-non-justifiee ">Non justifiée</span>
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
+                <!-- parties des utilisateurs -->
                 <div class="vue" id="admin-utilisateurs">
                     <div class="barre-titre">
                         <div>
@@ -380,28 +391,28 @@
                                         <th>Identifiant</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cellule-nom"><b>Admin</b></td>
+                                <tbody id="corps-utilisateurs">
+                                    <!-- <tr>
+                                        <td class="cellule-nom "><b>Admin</b></td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-admin">admin</span>
+                                            <span class="etiquette-statut etiquette-admin ">admin</span>
                                         </td>
-                                        <td class="matricule">Admin</td>
+                                        <td class="matricule ">Admin</td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom"><b>Mme Kouadio</b></td>
+                                        <td class="cellule-nom "><b>Mme Kouadio</b></td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-professeur">professeur</span>
+                                            <span class="etiquette-statut etiquette-professeur ">professeur</span>
                                         </td>
-                                        <td class="matricule">Kouadio</td>
+                                        <td class="matricule ">Kouadio</td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom"><b>KOFFI Aya</b></td>
+                                        <td class="cellule-nom "><b>KOFFI Aya</b></td>
                                         <td>
-                                            <span class="etiquette-statut etiquette-etudiant">étudiant</span>
+                                            <span class="etiquette-statut etiquette-etudiant ">étudiant</span>
                                         </td>
-                                        <td class="matricule">ET-2026-014</td>
-                                    </tr>
+                                        <td class="matricule ">ET-2026-014</td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
@@ -410,6 +421,98 @@
             </div>
         </main>
     </section>
+    <!-- parties des formulaires -->
+    <!-- formulaire d'ajout de professeur -->
+    <div id="modale-ajout-prof" style="display:none; position:fixed; inset:0; background:rgba(27,42,74,0.4); z-index:50; align-items:center; justify-content:center;">
+        <div class="panneau" style="max-width:420px; width:90%;">
+            <div class="entete-panneau">
+                <h3 id="titre-modale-prof">Ajouter un professeur</h3>
+            </div>
+            <form id="formulaire-ajout-prof" class="formulaire-rapide">
+                <input type="hidden" id="prof-id-edition" value="">
+                <div>
+                    <label>Nom</label>
+                    <input type="text" id="prof-nouveau-nom" required>
+                </div>
+                <div>
+                    <label>Matière</label>
+                    <input type="text" id="prof-nouvelle-matiere" required>
+                </div>
+                <div>
+                    <label>Classe</label>
+                    <input type="text" id="prof-nouvelle-classe" required>
+                </div>
+                <div id="bloc-code-acces-prof">
+                    <label>Code d'accès</label>
+                    <input type="text" id="prof-nouveau-code">
+                </div>
+                <div class="actions">
+                    <button type="button" class="bouton" id="bouton-annuler-prof">Annuler</button>
+                    <button type="submit" class="bouton bouton-ajouter" id="bouton-soumettre-prof">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- formulaire d'ajout d'étudiant -->
+    <div id="modale-ajout-etudiant" style="display:none; position:fixed; inset:0; background:rgba(27,42,74,0.4); z-index:50; align-items:center; justify-content:center;">
+        <div class="panneau" style="max-width:420px; width:90%;">
+            <div class="entete-panneau">
+                <h3 id="titre-modale-etudiant">Ajouter un étudiant</h3>
+            </div>
+            <form id="formulaire-ajout-etudiant" class="formulaire-rapide">
+                <input type="hidden" id="etudiant-matricule-edition" value="">
+                <div>
+                    <label>Matricule</label>
+                    <input type="text" id="etudiant-nouveau-matricule" required>
+                </div>
+                <div>
+                    <label>Nom</label>
+                    <input type="text" id="etudiant-nouveau-nom" required>
+                </div>
+                <div>
+                    <label>Prénom</label>
+                    <input type="text" id="etudiant-nouveau-prenom" required>
+                </div>
+                <div>
+                    <label>Âge</label>
+                    <input type="number" id="etudiant-nouvel-age" required>
+                </div>
+                <div>
+                    <label>Classe</label>
+                    <input type="text" id="etudiant-nouvelle-classe" required>
+                </div>
+                <div class="actions">
+                    <button type="button" class="bouton" id="bouton-annuler-etudiant">Annuler</button>
+                    <button type="submit" class="bouton bouton-ajouter" id="bouton-soumettre-etudiant">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- formulaire d'ajout de matière -->
+    <div id="modale-ajout-matiere" style="display:none; position:fixed; inset:0; background:rgba(27,42,74,0.4); z-index:50; align-items:center; justify-content:center;">
+        <div class="panneau" style="max-width:420px; width:90%;">
+            <div class="entete-panneau">
+                <h3 id="titre-modale-matiere">Ajouter une matière</h3>
+            </div>
+            <form id="formulaire-ajout-matiere" class="formulaire-rapide">
+                <input type="hidden" id="matiere-id-edition" value="">
+                <div id="bloc-nom-matiere">
+                    <label>Nom de la matière</label>
+                    <input type="text" id="matiere-nouveau-nom" required>
+                </div>
+                <div>
+                    <label>Professeur</label>
+                    <select id="matiere-select-prof"></select>
+                </div>
+                <div class="actions">
+                    <button type="button" class="bouton" id="bouton-annuler-matiere">Annuler</button>
+                    <button type="submit" class="bouton bouton-ajouter" id="bouton-soumettre-matiere">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="tableauAdmin.js"></script>
 </body>
