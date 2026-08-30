@@ -70,6 +70,43 @@ boutonsMenu.forEach((bouton) => {
         document.getElementById(cibleId).classList.add("actif");
     });
 });
+// Chargement du journal d'activité (logs)
+async function chargerJournal() {
+    try {
+        const reponse = await fetch('/logs?limite=10');
+
+        if (!reponse.ok) {
+            console.error('Erreur lors du chargement des logs :', reponse.status);
+            return;
+        }
+
+        const logs = await reponse.json(); // [{ date, niveau, message }]
+
+        const conteneur = document.getElementById('journal-activite');
+        conteneur.innerHTML = '';
+
+        if (logs.length === 0) {
+            conteneur.innerHTML = '<div class="ligne-journal">Aucune activité enregistrée.</div>';
+            return;
+        }
+
+        logs.forEach(entree => {
+            const ligne = document.createElement('div');
+            ligne.className = 'ligne-journal';
+            ligne.innerHTML = `
+                <span>${entree.date}</span>
+                <span class="niveau ${entree.niveau}">${entree.niveau}</span>
+                <span>${entree.message}</span>
+            `;
+            conteneur.appendChild(ligne);
+        });
+
+    } catch (err) {
+        console.error('Erreur reseau :', err);
+    }
+}
+
+chargerJournal();
 
 // vure des etudiant
 async function chargerEtudiants() {

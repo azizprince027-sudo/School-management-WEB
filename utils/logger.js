@@ -25,7 +25,25 @@ function logWarning(message) { writeLog("WARNING", message); }
 
 function logError(message) { writeLog("ERROR", message); }
 
-module.exports = { logInfo, logWarning, logError };
+function lireLogs(limite = 20) {
+    try {
+        if (!fs.existsSync(LOG)) return [];
+        const contenu = fs.readFileSync(LOG, "utf8");
+        const lignes = contenu.trim().split("\n").filter(Boolean);
+        const dernieresLignes = lignes.slice(-limite).reverse(); // plus recent en premier
+
+        const regex = /^(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) \[(\w+)\] (.*)$/;
+        return dernieresLignes.map(ligne => {
+            const match = ligne.match(regex);
+            if (!match) return { date: "", niveau: "INFO", message: ligne };
+            return { date: match[1], niveau: match[2], message: match[3] };
+        });
+    } catch (err) {
+        return [];
+    }
+}
+
+module.exports = { logInfo, logWarning, logError, lireLogs };
 
 //========================================================
 // j ai testé une nouvelles methodes 

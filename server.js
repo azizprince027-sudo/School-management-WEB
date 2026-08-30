@@ -13,6 +13,7 @@ const gradeRouter = require('./routes/Grade.Routes.js');
 const absenceRouter = require('./routes/Absence.Routes.js');
 const statsRouter = require('./routes/Stats.Routes.js');
 const userRouter = require('./routes/User.Routes.js');
+const logsRouter = require('./routes/Logs.Routes.js');
 
 const server = express();
 const PORT = process.env.PORT;
@@ -41,7 +42,7 @@ server.use('/grades', gradeRouter);
 server.use('/absences', absenceRouter);
 server.use('/stats', statsRouter);
 server.use('/users', userRouter);
-
+server.use('/logs', logsRouter);
 server.use(notFoundHandler);
 server.use(errorHandler);
 
