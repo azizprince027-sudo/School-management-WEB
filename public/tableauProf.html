@@ -1,19 +1,17 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>School-management</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="tableauProf.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="tableauProf.css" />
     <link rel="icon" type="image/png" href="ChatGPT Image 30 août 2026, 22_28_36.png" />
-
 </head>
 
 <body>
-
     <section id="tableau-de-bord" class="visible">
         <aside class="barre-laterale" id="barre-laterale">
             <div class="anneaux">
@@ -23,95 +21,110 @@
             <span class="etiquette-role" id="etiquette-role">professeur</span>
 
             <nav id="menu-professeur" class="groupe-menu">
-                <button class="element-menu actif" data-vue="professeur-accueil"><span class="puce"></span>Tableau
-                        de bord</button>
-                <button class="element-menu" data-vue="professeur-etudiants"><span class="puce"></span>Mes
-                        étudiants</button>
-                <button class="element-menu" data-vue="professeur-notes"><span
-                            class="puce "></span>Notes</button>
-                <button class="element-menu " data-vue="professeur-absences "><span
-                            class="puce "></span>Absences</button>
-                <button class="element-menu " data-vue="professeur-statistiques "><span
-                            class="puce "></span>Statistiques</button>
+                <button class="element-menu actif" data-vue="professeur-accueil">
+                    <span class="puce"></span>Tableau de bord
+                </button>
+                <button class="element-menu" data-vue="professeur-etudiants">
+                    <span class="puce"></span>Mes étudiants
+                </button>
+                <button class="element-menu" data-vue="professeur-notes">
+                    <span class="puce"></span>Notes
+                </button>
+                <button class="element-menu" data-vue="professeur-absences">
+                    <span class="puce"></span>Absences
+                </button>
+                <button class="element-menu" data-vue="professeur-statistiques">
+                    <span class="puce"></span>Statistiques
+                </button>
             </nav>
 
-            <div class="pied-barre-laterale ">
-                <div class="profil-utilisateur ">
-                    <div class="avatar-utilisateur " id="avatar-utilisateur ">M</div>
-                    <div class="identite-utilisateur "><b id="nom-utilisateur ">Mme Kouadio</b><span id="role-utilisateur ">Professeur</span></div>
+            <div class="pied-barre-laterale">
+                <div class="profil-utilisateur">
+                    <div class="avatar-utilisateur" id="avatar-utilisateur">M</div>
+                    <div class="identite-utilisateur">
+                        <b id="nom-utilisateur"></b><span id="role-utilisateur"></span>
+                    </div>
                 </div>
-                <button class="bouton-deconnexion ">Déconnexion</button>
+                <button class="bouton-deconnexion">Déconnexion</button>
             </div>
         </aside>
 
-        <main class="contenu-principal ">
-            <button class="bouton-menu ">☰ Menu</button>
+        <main class="contenu-principal">
+            <button class="bouton-menu">☰ Menu</button>
 
-            <div data-espace="professeur ">
-                <div class="vue actif " id="professeur-accueil ">
-                    <div class="barre-titre ">
+            <div data-espace="professeur">
+                <div class="vue actif" id="professeur-accueil">
+                    <div class="barre-titre">
                         <div>
                             <h1>Tableau de bord</h1>
-                            <p class="sous-titre ">Classe L1 DAS — A · Mathématiques</p>
+                            <p class="sous-titre"></p>
                         </div>
-                        <div class="date-jour texte-code ">mar. 07 juil. 2026</div>
+                        <div class="date-jour texte-code"></div>
                     </div>
-                    <div class="bloc-statistiques ">
-                        <div class="carte-statistique ">
-                            <div class="libelle ">Étudiants</div>
-                            <div class="valeur ">32</div>
+                    <div class="bloc-statistiques">
+                        <div class="carte-statistique">
+                            <div class="libelle">Étudiants</div>
+                            <div class="valeur"></div>
                         </div>
-                        <div class="carte-statistique ">
-                            <div class="libelle ">Moyenne générale</div>
-                            <div class="valeur ">13,4</div>
-                            <div class="variation ">/20</div>
+                        <div class="carte-statistique">
+                            <div class="libelle">Moyenne générale</div>
+                            <div class="valeur"></div>
+                            <div class="variation"></div>
                         </div>
-                        <div class="carte-statistique ">
-                            <div class="libelle ">Absences aujourd'hui</div>
-                            <div class="valeur ">2</div>
-                            <div class="variation alerte ">non justifiées</div>
+                        <div class="carte-statistique">
+                            <div class="libelle">Absences aujourd'hui</div>
+                            <div class="valeur"></div>
+                            <div class="variation alerte">Voir le status</div>
                         </div>
                     </div>
-                    <div class="deux-colonnes ">
-                        <div class="panneau ">
-                            <div class="entete-panneau ">
+                    <div class="deux-colonnes">
+                        <div class="panneau">
+                            <div class="entete-panneau">
                                 <h3>Dernières notes saisies</h3>
                             </div>
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td class="cellule-nom "><b>KOFFI Aya</b><span>L1 DAS — A</span></td>
-                                        <td><span class="badge-note bonne ">16</span></td>
+                                    <!-- <tr>
+                                        <td class="cellule-nom">
+                                            <b>KOFFI Aya</b><span>L1 DAS — A</span>
+                                        </td>
+                                        <td><span class="badge-note bonne">16</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom "><b>OUATTARA Seydou</b><span>L1 DAS — A</span></td>
-                                        <td><span class="badge-note moyenne-note ">11</span></td>
+                                        <td class="cellule-nom">
+                                            <b>OUATTARA Seydou</b><span>L1 DAS — A</span>
+                                        </td>
+                                        <td><span class="badge-note moyenne-note">11</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom "><b>TRAORÉ Ibrahim</b><span>L1 DAS — A</span></td>
-                                        <td><span class="badge-note ">08</span></td>
-                                    </tr>
+                                        <td class="cellule-nom">
+                                            <b>TRAORÉ Ibrahim</b><span>L1 DAS — A</span>
+                                        </td>
+                                        <td><span class="badge-note">08</span></td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
-                        <div class="panneau carte-podium ">
-                            <div class="couronne ">🏆</div>
-                            <div class="nom ">KOFFI Aya</div>
-                            <div class="details ">Meilleure étudiante de la classe</div>
-                            <div class="resultat-moyenne "><span class="chiffre-moyenne ">17,2</span><span class="legende-moyenne ">Moyenne</span></div>
+                        <div class="panneau carte-podium">
+                            <div class="couronne">🏆</div>
+                            <div class="nom"></div>
+                            <div class="details">Meilleure étudiante de la classe</div>
+                            <div class="resultat-moyenne">
+                                <span class="chiffre-moyenne"></span><span class="legende-moyenne">Moyenne</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="vue " id="professeur-etudiants ">
-                    <div class="barre-titre ">
+                <!-- parties des etudiants -->
+                <div class="vue" id="professeur-etudiants">
+                    <div class="barre-titre">
                         <div>
                             <h1>Mes étudiants</h1>
-                            <p class="sous-titre ">L1 DAS — A · 32 étudiants</p>
+                            <p class="sous-titre"></p>
                         </div>
                     </div>
-                    <div class="panneau ">
-                        <div class="corps-panneau ">
+                    <div class="panneau">
+                        <div class="corps-panneau">
                             <table>
                                 <thead>
                                     <tr>
@@ -121,50 +134,57 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="matricule ">ET-2026-014</td>
-                                        <td class="cellule-nom "><b>KOFFI Aya</b></td>
-                                        <td><span class="badge-note bonne ">17</span></td>
+                                    <!-- <tr>
+                                        <td class="matricule">ET-2026-014</td>
+                                        <td class="cellule-nom"><b>KOFFI Aya</b></td>
+                                        <td><span class="badge-note bonne">17</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="matricule ">ET-2026-015</td>
-                                        <td class="cellule-nom "><b>TRAORÉ Ibrahim</b></td>
-                                        <td><span class="badge-note moyenne-note ">12</span></td>
+                                        <td class="matricule">ET-2026-015</td>
+                                        <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
+                                        <td><span class="badge-note moyenne-note">12</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="matricule ">ET-2026-017</td>
-                                        <td class="cellule-nom "><b>OUATTARA Seydou</b></td>
-                                        <td><span class="badge-note moyenne-note ">11</span></td>
-                                    </tr>
+                                        <td class="matricule">ET-2026-017</td>
+                                        <td class="cellule-nom"><b>u</b></td>
+                                        <td><span class="badge-note moyenne-note">11</span></td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="vue " id="professeur-notes ">
-                    <div class="barre-titre ">
+                <!-- Notes -->
+                <div class="vue" id="professeur-notes">
+                    <div class="barre-titre">
                         <div>
                             <h1>Notes</h1>
-                            <p class="sous-titre ">Ajouter, modifier ou supprimer une note</p>
+                            <p class="sous-titre">
+                                Ajouter, modifier ou supprimer une note
+                            </p>
                         </div>
                     </div>
-                    <div class="panneau ">
-                        <div class="entete-panneau ">
+                    <div class="panneau">
+                        <div class="entete-panneau">
                             <h3>Nouvelle note</h3>
                         </div>
-                        <form class="formulaire-rapide ">
-                            <div><label>Étudiant</label><select>
-                                        <option>KOFFI Aya</option>
-                                        <option>TRAORÉ Ibrahim</option>
-                                        <option>OUATTARA Seydou</option>
-                                    </select></div>
-                            <div><label>Note (0–20)</label><input type="number " min="0 " max="20 " value="15 "></div>
-                            <div class="actions "><button type="reset " class="bouton ">Annuler</button><button type="submit " class="bouton bouton-ajouter ">Enregistrer la note</button></div>
+                        <form class="formulaire-rapide" id="formulaire-note">
+                            <div>
+                                <label>Étudiant</label>
+                                <select id="note-select-etudiant"></select>
+                            </div>
+                            <div>
+                                <label>Note (0–20)</label>
+                                <input type="number" min="0" max="20" id="note-valeur" required>
+                            </div>
+                            <div class="actions">
+                                <button type="reset" class="bouton">Annuler</button>
+                                <button type="submit" class="bouton bouton-ajouter">Enregistrer la note</button>
+                            </div>
                         </form>
                     </div>
-                    <div class="panneau ">
-                        <div class="corps-panneau ">
+                    <div class="panneau">
+                        <div class="corps-panneau">
                             <table>
                                 <thead>
                                     <tr>
@@ -173,50 +193,61 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cellule-nom "><b>KOFFI Aya</b></td>
-                                        <td><span class="badge-note bonne ">16</span></td>
-                                        <td class="actions-ligne "><button class="bouton-discret ">✎</button><button class="bouton-discret ">🗑</button></td>
+                                <tbody id="corps-notes">
+                                    <!-- <tr>
+                                        <td class="cellule-nom"><b>KOFFI Aya</b></td>
+                                        <td><span class="badge-note bonne">16</span></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom "><b>TRAORÉ Ibrahim</b></td>
-                                        <td><span class="badge-note ">08</span></td>
-                                        <td class="actions-ligne "><button class="bouton-discret ">✎</button><button class="bouton-discret ">🗑</button></td>
+                                        <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
+                                        <td><span class="badge-note">08</span></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom "><b>OUATTARA Seydou</b></td>
-                                        <td><span class="badge-note moyenne-note ">11</span></td>
-                                        <td class="actions-ligne "><button class="bouton-discret ">✎</button><button class="bouton-discret ">🗑</button></td>
-                                    </tr>
+                                        <td class="cellule-nom"><b>OUATTARA Seydou</b></td>
+                                        <td><span class="badge-note moyenne-note">11</span></td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">✎</button><button class="bouton-discret">🗑</button>
+                                        </td>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="vue " id="professeur-absences ">
-                    <div class="barre-titre ">
+                <!-- Absences -->
+                <div class="vue" id="professeur-absences">
+                    <div class="barre-titre">
                         <div>
                             <h1>Absences</h1>
-                            <p class="sous-titre ">Enregistrer et justifier une absence</p>
+                            <p class="sous-titre">Enregistrer et justifier une absence</p>
                         </div>
                     </div>
-                    <div class="panneau ">
-                        <div class="entete-panneau ">
+                    <div class="panneau">
+                        <div class="entete-panneau">
                             <h3>Enregistrer une absence</h3>
                         </div>
-                        <form class="formulaire-rapide ">
-                            <div><label>Étudiant</label><select>
-                                        <option>TRAORÉ Ibrahim</option>
-                                        <option>YAO Marie</option>
-                                    </select></div>
-                            <div><label>Date</label><input type="date " value="2026-07-07 "></div>
-                            <div class="actions "><button type="submit " class="bouton bouton-ajouter ">Enregistrer</button></div>
+                        <form class="formulaire-rapide" id="formulaire-absence">
+                            <div>
+                                <label>Étudiant</label>
+                                <select id="absence-select-etudiant"></select>
+                            </div>
+                            <div>
+                                <label>Date</label>
+                                <input type="date" id="absence-date" required>
+                            </div>
+                            <div class="actions">
+                                <button type="submit" class="bouton bouton-ajouter">Enregistrer</button>
+                            </div>
                         </form>
                     </div>
-                    <div class="panneau ">
-                        <div class="corps-panneau ">
+                    <div class="panneau">
+                        <div class="corps-panneau">
                             <table>
                                 <thead>
                                     <tr>
@@ -226,54 +257,81 @@
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="cellule-nom "><b>TRAORÉ Ibrahim</b></td>
-                                        <td class="matricule ">06/07/2026</td>
-                                        <td><span class="etiquette-statut etiquette-non-justifiee ">Non
-                                                    justifiée</span></td>
-                                        <td class="actions-ligne "><button class="bouton-discret ">Justifier</button>
+                                <tbody id="corps-absences-prof">
+                                    <!-- <tr>
+                                        <td class="cellule-nom"><b>TRAORÉ Ibrahim</b></td>
+                                        <td class="matricule">06/07/2026</td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-non-justifiee">Non justifiée</span>
+                                        </td>
+                                        <td class="actions-ligne">
+                                            <button class="bouton-discret">Justifier</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="cellule-nom "><b>YAO Marie</b></td>
-                                        <td class="matricule ">05/07/2026</td>
-                                        <td><span class="etiquette-statut etiquette-justifiee ">Justifiée</span></td>
+                                        <td class="cellule-nom"><b>YAO Marie</b></td>
+                                        <td class="matricule">05/07/2026</td>
+                                        <td>
+                                            <span class="etiquette-statut etiquette-justifiee">Justifiée</span>
+                                        </td>
                                         <td></td>
-                                    </tr>
+                                    </tr> -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
-                <div class="vue " id="professeur-statistiques ">
-                    <div class="barre-titre ">
+                <!-- Statistiques -->
+                <div class="vue" id="professeur-statistiques">
+                    <div class="barre-titre">
                         <div>
                             <h1>Statistiques</h1>
-                            <p class="sous-titre ">L1 DAS — A</p>
+                            <p class="sous-titre"></p>
                         </div>
                     </div>
-                    <div class="deux-colonnes ">
-                        <div class="panneau carte-podium ">
-                            <div class="couronne ">🏆</div>
-                            <div class="nom ">KOFFI Aya</div>
-                            <div class="details ">Meilleure étudiante</div>
-                            <div class="resultat-moyenne "><span class="chiffre-moyenne ">17,2</span><span class="legende-moyenne ">Moyenne</span></div>
+                    <div class="deux-colonnes">
+                        <div class="panneau carte-podium">
+                            <div class="couronne">🏆</div>
+                            <div class="nom"></div>
+                            <div class="details"></div>
+                            <div class="resultat-moyenne">
+                                <span class="chiffre-moyenne"></span><span class="legende-moyenne">Moyenne</span>
+                            </div>
                         </div>
-                        <div class="panneau carte-podium ">
-                            <div class="couronne ">📊</div>
-                            <div class="nom ">Moyenne générale</div>
-                            <div class="details ">Classe L1 DAS — A</div>
-                            <div class="resultat-moyenne "><span class="chiffre-moyenne ">13,4</span><span class="legende-moyenne ">/ 20</span></div>
+                        <div class="panneau carte-podium">
+                            <div class="couronne">📊</div>
+                            <div class="nom">Moyenne générale</div>
+                            <div class="details"></div>
+                            <div class="resultat-moyenne">
+                                <span class="chiffre-moyenne"></span><span class="legende-moyenne">/ 20</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     </section>
+    <!-- FORMULAIRES DAJOUTS DE NOTES  -->
+    <div id="modale-note" style="display:none; position:fixed; inset:0; background:rgba(27,42,74,0.4); z-index:50; align-items:center; justify-content:center;">
+        <div class="panneau" style="max-width:360px; width:90%;">
+            <div class="entete-panneau">
+                <h3>Modifier la note</h3>
+            </div>
+            <form id="formulaire-modifier-note" class="formulaire-rapide">
+                <input type="hidden" id="note-id-edition" value="">
+                <div>
+                    <label>Note (0–20)</label>
+                    <input type="number" min="0" max="20" id="note-valeur-edition" required>
+                </div>
+                <div class="actions">
+                    <button type="button" class="bouton" id="bouton-annuler-note">Annuler</button>
+                    <button type="submit" class="bouton bouton-ajouter">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <script src="tableauProf.js "></script>
+    <script src="tableauProf.js"></script>
 </body>
 
 </html>

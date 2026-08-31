@@ -1,4 +1,13 @@
-const { ajouterProfesseur, modifierProfesseur, supprimerProfesseur, rechercherProfesseur, listerProfesseurs } = require('../services/teacherServices.js');
+const { ajouterProfesseur, modifierProfesseur, supprimerProfesseur, rechercherProfesseur, listerProfesseurs, getProfesseurParUserId } = require('../services/teacherServices.js');
+// Controller pour gérer les requêtes liées aux professeurs
+
+async function monProfil(req, res) {
+    const prof = await getProfesseurParUserId(req.session.user.id);
+    if (!prof) {
+        return res.status(404).json({ error: 'Profil professeur introuvable.' });
+    }
+    res.json(prof);
+}
 
 async function creer(req, res) {
     const { nom, matiere, classe, codeAcces } = req.body;
@@ -30,4 +39,4 @@ async function lister(req, res) {
     res.json(await listerProfesseurs());
 }
 
-module.exports = { creer, modifier, supprimer, rechercher, lister };
+module.exports = { creer, modifier, supprimer, rechercher, lister, monProfil };
