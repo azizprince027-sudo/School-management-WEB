@@ -15,6 +15,9 @@ async function meilleurEtudiant(classe) {
             LIMIT 1
         `);
         const result = await stmt.get([classe]);
+        if (result && result.moyenne !== null) {
+            result.moyenne = Number(result.moyenne.toFixed(2));
+        }
         return result || null;
     } catch (err) {
         logWarning(`Echec recherche meilleur etudiant classe ${classe} : ${err.message}`);
