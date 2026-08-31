@@ -3,6 +3,10 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide, AgeValide } = require('../utils/validation.js');
 
 async function ajouterEtudiant(matricule, nom, prenom, age, classe) {
+    matricule = matricule ? matricule.trim() : null;
+    nom = nom ? nom.trim() : null;
+    prenom = prenom ? prenom.trim() : null;
+    classe = classe ? classe.trim() : null;
     if (!NonVide(matricule) || !NonVide(nom) || !NonVide(prenom) || !AgeValide(age) || !NonVide(classe)) {
         logWarning(`Champs invalides pour ajout etudiant : ${matricule}`);
         return false;
@@ -21,7 +25,13 @@ async function ajouterEtudiant(matricule, nom, prenom, age, classe) {
 }
 
 async function modifierEtudiant(matricule, champs) {
-    const { nom, prenom, age, classe } = champs;
+    let { nom, prenom, age, classe } = champs;
+    matricule = matricule ? matricule.trim() : null;
+    nom = nom ? nom.trim() : null;
+    prenom = prenom ? prenom.trim() : null;
+    age = age ? age : null;
+    classe = classe ? classe.trim() : null;
+
     if (!NonVide(nom) || !NonVide(prenom) || !AgeValide(age) || !NonVide(classe)) {
         logWarning(`Champs invalides pour modification : ${matricule}`);
         return false;
@@ -44,6 +54,11 @@ async function modifierEtudiant(matricule, champs) {
 }
 
 async function supprimerEtudiant(matricule) {
+    matricule = matricule ? matricule.trim() : null;
+    if (!NonVide(matricule)) {
+        logWarning('Suppression etudiant impossible : matricule vide');
+        return null;
+    }
     try {
         const stmt = await db.prepare('DELETE FROM students WHERE matricule = ?');
         const result = await stmt.run([matricule]);
@@ -57,6 +72,11 @@ async function supprimerEtudiant(matricule) {
 }
 
 async function rechercherEtudiant(matricule) {
+    matricule = matricule ? matricule.trim() : null;
+    if (!NonVide(matricule)) {
+        logWarning('Recherche etudiant impossible : matricule vide');
+        return null;
+    }
     try {
         const stmt = await db.prepare('SELECT * FROM students WHERE matricule = ?');
         return await stmt.get([matricule]);
@@ -67,6 +87,7 @@ async function rechercherEtudiant(matricule) {
 }
 
 async function listerEtudiants(classe = null) {
+    classe = classe ? classe.trim() : null;
     try {
         if (classe) {
             const stmt = await db.prepare('SELECT * FROM students WHERE classe = ?');

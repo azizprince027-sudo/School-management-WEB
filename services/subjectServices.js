@@ -3,6 +3,7 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide } = require('../utils/validation.js');
 
 async function ajouterMatiere(nom, teacherId = null) {
+    nom = nom ? nom.trim() : null;
     if (!NonVide(nom)) {
         logWarning('Ajout matiere impossible : nom vide');
         return null;

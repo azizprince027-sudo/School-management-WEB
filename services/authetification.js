@@ -2,6 +2,10 @@ const db = require('../db/database.js');
 const { logInfo, logWarning } = require('../utils/logger.js');
 
 async function loginUser(name, codeAcces, role) {
+    name = name ? name.trim() : null;
+    codeAcces = codeAcces ? codeAcces.trim() : null;
+    role = role ? role.trim() : null;
+
     try {
         const stmt = await db.prepare(
             'SELECT * FROM users WHERE name = ? AND code_acces = ? AND role = ?'
@@ -22,6 +26,7 @@ async function loginUser(name, codeAcces, role) {
 }
 
 async function loginStudent(matricule) {
+    matricule = matricule ? matricule.trim() : null;
     try {
         const stmt = await db.prepare('SELECT * FROM students WHERE matricule = ?');
         const student = await stmt.get([matricule]);

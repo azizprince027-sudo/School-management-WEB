@@ -3,8 +3,19 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide } = require('../utils/validation.js');
 
 async function ajouterProfesseur(nom, matiere, classe, codeAcces) {
+    nom = nom ? nom.trim() : null;
+    matiere = matiere ? matiere.trim() : null;
+    classe = classe ? classe.trim() : null;
+    codeAcces = codeAcces ? codeAcces.trim() : null;
     if (!NonVide(nom) || !NonVide(matiere) || !NonVide(classe) || !NonVide(codeAcces)) {
         logWarning('Tous les champs sont requis pour ajouter un professeur');
+        return null;
+    }
+
+    const stmtVerif = await db.prepare('SELECT id FROM users WHERE name = ? AND code_acces = ?');
+    const existant = await stmtVerif.get([nom, codeAcces]);
+    if (existant) {
+        logWarning(`Ajout professeur refuse : nom + code d'acces deja utilises : ${nom}`);
         return null;
     }
 
@@ -29,7 +40,10 @@ async function ajouterProfesseur(nom, matiere, classe, codeAcces) {
 }
 
 async function modifierProfesseur(id, champs) {
-    const { nom, matiere, classe } = champs;
+    let { nom, matiere, classe } = champs;
+    nom = nom ? nom.trim() : null;
+    matiere = matiere ? matiere.trim() : null;
+    classe = classe ? classe.trim() : null;
     if (!NonVide(nom) || !NonVide(matiere) || !NonVide(classe)) {
         logWarning(`Champs invalides pour modification professeur : id ${id}`);
         return false;

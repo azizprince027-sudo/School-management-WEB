@@ -3,6 +3,7 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { DateValide } = require('../utils/validation.js');
 
 async function enregistrerAbsence(studentId, date) {
+    date = date ? date.trim() : null;
     if (!DateValide(date)) {
         logWarning(`Date invalide rejetee : ${date}`);
         return false;
@@ -53,6 +54,7 @@ async function historiqueEtudiant(studentId) {
 }
 
 async function historiqueClasse(classe) {
+    classe = classe ? classe.trim() : null;
     try {
         const stmt = await db.prepare(`
             SELECT absences.id, absences.date, absences.status, students.nom, students.prenom

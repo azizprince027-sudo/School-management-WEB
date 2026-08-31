@@ -3,11 +3,23 @@ const { logInfo, logWarning } = require('../utils/logger.js');
 const { NonVide } = require('../utils/validation.js');
 
 async function ajouterUser(name, role, codeAcces) {
+    name = name ? name.trim() : null;
+    role = role ? role.trim() : null;
+    codeAcces = codeAcces ? codeAcces.trim() : null;
+
     if (!NonVide(name) || !NonVide(role) || !NonVide(codeAcces)) {
         logWarning(`Champs invalides pour ajout utilisateur : ${name}`);
         return null;
     }
+
     try {
+        const stmtVerif = await db.prepare('SELECT id FROM users WHERE name = ? AND code_acces = ?');
+        const existant = await stmtVerif.get([name, codeAcces]);
+        if (existant) {
+            logWarning(`Ajout utilisateur refuse : nom + code d'acces deja utilises : ${name}`);
+            return null;
+        }
+
         const stmt = await db.prepare('INSERT INTO users (name, role, code_acces) VALUES (?, ?, ?)');
         const result = await stmt.run([name, role, codeAcces]);
         logInfo(`Utilisateur ajoute : ${name} (${role})`);

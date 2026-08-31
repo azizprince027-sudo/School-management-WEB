@@ -3,6 +3,7 @@ const { logWarning } = require('../utils/logger.js');
 const { DateValide } = require('../utils/validation.js');
 
 async function meilleurEtudiant(classe) {
+    classe = classe ? classe.trim() : null;
     try {
         const stmt = await db.prepare(`
             SELECT students.matricule, students.nom, students.prenom, AVG(grades.note) AS moyenne
@@ -22,6 +23,7 @@ async function meilleurEtudiant(classe) {
 }
 
 async function moyenneGeneraleClasse(classe) {
+    classe = classe ? classe.trim() : null;
     try {
         const stmt = await db.prepare(`
             SELECT AVG(grades.note) AS moyenne
@@ -38,6 +40,8 @@ async function moyenneGeneraleClasse(classe) {
 }
 
 async function compterAbsencesJour(date, classe = null) {
+    classe = classe ? classe.trim() : null;
+    date = date ? date.trim() : null;
     if (!DateValide(date)) {
         logWarning(`Date invalide pour comptage absences : ${date}`);
         return null;
