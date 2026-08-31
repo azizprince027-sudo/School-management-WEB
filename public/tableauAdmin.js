@@ -73,7 +73,7 @@ boutonsMenu.forEach((bouton) => {
 // Chargement du journal d'activité (logs)
 async function chargerJournal() {
     try {
-        const reponse = await fetch('/logs?limite=10');
+        const reponse = await fetch('/logs?limite=30');
 
         if (!reponse.ok) {
             console.error('Erreur lors du chargement des logs :', reponse.status);
